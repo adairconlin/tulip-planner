@@ -3,6 +3,10 @@ const detailSchema = require("./Detail");
 
 const eventSchema = new Schema(
     {
+        userId: {
+            type: String,
+            required: true
+        },
         eventText: {
             type: String,
             required: "Please fill out some text for this event.",
@@ -13,10 +17,6 @@ const eventSchema = new Schema(
             type: Date,
             default: Date.now,
             //get: timestamp => dateFormat(timestamp)
-        },
-        username: {
-            type: String,
-            required: true
         },
         eventDate: {
             type: Date,

@@ -19,6 +19,7 @@ const resolvers = {
         user: async (parent, { username }) => {
             return User.findOne({ username })
                 .select("-_v -password")
+                .populate("events")
         },
         events: async() => {
             return Event.find().sort({ createdAt: -1 });
@@ -44,6 +45,21 @@ const resolvers = {
 
             const token = signToken(user);
             return { token, user };
+        },
+        addEvent: async (parent, args, context) => {
+            if(context.user) {
+                console.log(context.user);
+                const event = await Event.create({ ...args, userId: context.user._id });
+
+                await User.findByIdAndUpdate(
+                    { _id: context.user._id },
+                    { $push: { events: event._id } },
+                    { new: true }
+                );
+                return event;
+            }
+
+            throw new AuthenticationError("You need to be logged in!");
         }
     }
 };
