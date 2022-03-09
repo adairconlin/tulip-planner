@@ -50,6 +50,7 @@ const resolvers = {
             return { token, user };
         },
         addEvent: async (parent, args, context) => {
+            console.log(context.user);
             if(context.user) {
                 const event = await Event.create({ ...args, userId: context.user._id });
 
@@ -74,15 +75,16 @@ const resolvers = {
             }
             throw new AuthenticationError("You need to be logged in!");
         },
-        deleteUser: async (parent, { userId }, context) => {
+        deleteUser: async (parent, args, context) => {
             if(context.user) {
                 const removeUser = await Event.deleteMany(
                     { userId: context.user._id }
                 ) .then(updatedData => User.findByIdAndDelete(
-                    { _id: userId }
+                    { _id: context.user._id }
                 ));
                 return removeUser;
             }
+
             throw new AuthenticationError("You need to be logged in!");
         },
         deleteEvent: async (parent, { eventId }, context) => {
