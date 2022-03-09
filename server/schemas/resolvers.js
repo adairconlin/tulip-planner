@@ -48,7 +48,6 @@ const resolvers = {
         },
         addEvent: async (parent, args, context) => {
             if(context.user) {
-                console.log(context.user);
                 const event = await Event.create({ ...args, userId: context.user._id });
 
                 await User.findByIdAndUpdate(
@@ -59,6 +58,17 @@ const resolvers = {
                 return event;
             }
 
+            throw new AuthenticationError("You need to be logged in!");
+        },
+        addDetail: async (parent, { eventId, detailText }, context) => {
+            if(context.user) {
+                const updatedEvent = await Event.findOneAndUpdate(
+                    { _id: eventId },
+                    { $push: { details: { detailText, userId: context.user._id } } },
+                    { new: true, runValidators: true }
+                );
+                return updatedEvent;
+            }
             throw new AuthenticationError("You need to be logged in!");
         }
     }

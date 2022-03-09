@@ -19,14 +19,14 @@ const eventSchema = new Schema(
             //get: timestamp => dateFormat(timestamp)
         },
         eventDate: {
-            type: Date,
+            type: String,
             required: false
         },
         eventDay: {
             type: String,
             required: false
         },
-        detail: [detailSchema]
+        details: [detailSchema]
     }
 );
 
