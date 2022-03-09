@@ -38,10 +38,10 @@ const typeDefs = gql`
         addUser(username: String!, email: String!, password: String!): Auth
         addEvent(eventText: String!, eventDay: String, eventDate: String): Event
         addDetail(detailText: String!, eventId: ID!): Event
-
         deleteUser(userId: ID!): User
         deleteEvent(eventId: ID!): User
         deleteDetail(detailId: ID!, eventId: ID!): Event
+        editEvent(eventText: String, eventDay: String, eventDate: String): Event
     }
 
     type Auth {

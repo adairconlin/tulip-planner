@@ -109,6 +109,19 @@ const resolvers = {
                 return removeDetail;
             }
             throw new AuthenticationError("You need to be logged in!");
+        },
+        editEvent: async (parent, args, context) => {
+            if(context.user) {
+                if(args.eventText) {
+                    console.log(args.eventText);
+                } else if(args.eventDate) {
+                    console.log(args.eventDate);
+                } else if(args.eventDay) {
+                    console.log(args.eventDay);
+                }
+            }
+
+            throw new AuthenticationError("You need to be logged in!");
         }
     }
 };
