@@ -19,11 +19,14 @@ const resolvers = {
         user: async (parent, { username }) => {
             return User.findOne({ username })
                 .select("-_v -password")
-                .populate("events")
+                .populate("events");
         },
-        events: async() => {
-            return Event.find().sort({ createdAt: -1 });
-        }
+        events: async(parent, { userId }) => {
+            const params = userId ? { userId } : {};
+            return Event.find(params)
+                .populate("details")
+                .sort({ createdAt: -1 });
+        },
     },
     Mutation: {
         addUser: async (parent, args) => {
@@ -57,17 +60,63 @@ const resolvers = {
                 );
                 return event;
             }
-
             throw new AuthenticationError("You need to be logged in!");
         },
         addDetail: async (parent, { eventId, detailText }, context) => {
             if(context.user) {
+                console.log(context.user);
                 const updatedEvent = await Event.findOneAndUpdate(
                     { _id: eventId },
                     { $push: { details: { detailText, userId: context.user._id } } },
                     { new: true, runValidators: true }
                 );
                 return updatedEvent;
+            }
+            throw new AuthenticationError("You need to be logged in!");
+        },
+        // deleteUser: async (parent, { userId }, context) => {
+        //     if(context.user) {
+        //         const removeUser = await User.findByIdAndDelete(
+        //             { _id: userId },
+        //             { new: true }
+        //         );
+        //         return removeUser;
+        //     }
+        //     throw new AuthenticationError("You need to be logged in!");
+        // },
+        deleteUser: async (parent, { userId }, context) => {
+            if(context.user) {
+                const removeUser = await Event.deleteMany(
+                    { userId: context.user._id }
+                ) .then(updatedData => User.findByIdAndDelete(
+                    { _id: userId }
+                ));
+                return removeUser;
+            }
+            throw new AuthenticationError("You need to be logged in!");
+        },
+        deleteEvent: async (parent, { eventId }, context) => {
+            if(context.user) {
+                const removeEvent = await User.findByIdAndUpdate(
+                    { _id: context.user._id },
+                    { $pull: { events: eventId  } },
+                    { new: true }
+                ) .then(updatedData => Event.findByIdAndDelete(
+                    { _id: eventId },
+                    { new: true }
+                ))
+                return removeEvent;
+            }
+            throw new AuthenticationError("You need to be logged in!");
+        },
+        deleteDetail: async (parent, { eventId, detailId }, context) => {
+            if(context.user) {
+                const removeDetail = await Event.findByIdAndUpdate(
+                    { _id: eventId },
+                    { $pull: { details: { _id: detailId } } },
+                    { new: true }
+                )
+                return removeDetail;
             }
             throw new AuthenticationError("You need to be logged in!");
         }
