@@ -58,14 +58,17 @@ const resolvers = {
             return { token, user };
         },
         addEvent: async (parent, args, context) => {
-            const checkForCategory = await Category.findOne({ category: args.category });
-            if(!checkForCategory) {
-                throw new AuthenticationError("Type does not exist");
+            if(args.category) {
+                const checkForCategory = await Category.findOne({ category: args.category });
+                if(!checkForCategory) {
+                    throw new AuthenticationError("Category does not exist");
+                } 
+                args.category = checkForCategory._id;
             }
 
             if(context.user) {
-                const event = await Event.create({ ...args, category: checkForCategory._id, user: context.user._id });
-                
+                const event = await Event.create({ ...args, user: context.user._id });
+
                 await User.findByIdAndUpdate(
                     { _id: context.user._id },
                     { $push: { events: event._id } },
@@ -102,7 +105,7 @@ const resolvers = {
         },
         editCategory: async (parent, args, context) => {
             if(context.user) {
-                return await Category.findOneAndUpdate( { categoryName: args.categoryName }, args, { new: true })
+                return await Category.findOneAndUpdate( { _id: args.categoryId }, args, { new: true })
             }
             throw new AuthenticationError("You need to be logged in!");
         },
@@ -136,15 +139,15 @@ const resolvers = {
             }
             throw new AuthenticationError("You need to be logged in!");
         },
-        deleteCategory: async (parent, { categoryName }, context) => {
+        deleteCategory: async (parent, { categoryId }, context) => {
             if(context.user) {
-                const removeCategory = await User.findById(
+                const removeCategory = await User.findByIdAndUpdate(
                     { _id: context.user._id },
-                    { $pull: { categories: categoryName } },
+                    { $pull: { categories: categoryId } },
                     { new: true }
                 ) 
                 .then(updatedData => Category.findOneAndDelete(
-                    { categoryName: categoryName },
+                    { _id: categoryId },
                     { new: true }
                 ))
                 return removeCategory;

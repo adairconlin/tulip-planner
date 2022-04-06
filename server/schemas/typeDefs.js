@@ -42,13 +42,13 @@ const typeDefs = gql`
         addEvent(title: String!, description: String, startDate: String!, endDate: String, category: String): Event
         addCategory(categoryName: String!, color: String!): Category
 
-        editUser(name: String, email: String, password: String): Auth
-        editEvent(title: String, description: String, startDate: String, endDate: String, category: String): Event
-        editCategory(categoryName: String, color: String): Category
+        editUser(name: String, email: String, password: String): User
+        editEvent(eventId: ID!, title: String, description: String, startDate: String, endDate: String, category: String): Event
+        editCategory(categoryId: ID!, categoryName: String, color: String): Category
 
         deleteUser: User
         deleteEvent(eventId: ID!): User
-        deleteCategory(categoryName: String!): User
+        deleteCategory(categoryId: ID!): User
     }
 
     type Auth {
