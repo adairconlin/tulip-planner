@@ -1,5 +1,5 @@
 const User = require("./User");
 const Event = require("./Event");
-const EventType = require("./EventType");
+const Category = require("./Category");
 
-module.exports = { User, Event, EventType };
+module.exports = { User, Event, Category };

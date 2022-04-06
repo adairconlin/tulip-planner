@@ -25,10 +25,10 @@ const userSchema = new Schema(
                 ref: "Event"
             }
         ],
-        types: [
+        categories: [
             {
-                type: Schema.Types.ObjectId,
-                ref: "EventType"
+                type:  Schema.Types.ObjectId,
+                ref: "Category"
             }
         ],
         createdAt: {

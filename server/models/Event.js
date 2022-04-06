@@ -14,20 +14,16 @@ const eventSchema = new Schema(
             trim: true
         },
         startDate: {
-            type: Date,
-            required: false
+            type: String,
+            required: true
         },
         endDate: {
-            type: Date,
+            type: String,
             required: false
         },
-        day: {
-            type: Date,
-            required: false
-        },
-        type: {
-            type: Schema.Types.ObjectId,
-            ref: "EventType"
+        category: {
+            type:  Schema.Types.ObjectId,
+            ref: "Category"
         },
         user: {
             type: Schema.Types.ObjectId,

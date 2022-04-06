@@ -1,47 +1,54 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-    type Event {
-        _id: ID
-        userId: String
-        eventText: String
-        createdAt: String
-        eventDate: String
-        eventDay: String
-        details: [Detail]
-    }
-
-    type Detail {
-        _id: ID
-        userId: String
-        detailText: String
-        createdAt: String
-    }
-    
     type User {
         _id: ID
-        username: String
+        name: String
         email: String
         events: [Event]
+        categories: [Category]
+    }
+    
+    type Event {
+        _id: ID
+        title: String
+        description: String
+        startDate: String
+        endDate: String
+        category: Category
+        user: User
+    }
+
+    type Category {
+        _id: ID
+        categoryName: String
+        color: String
+        user: User
     }
 
     type Query {
         me: User
         users: [User]
-        user(username: String!): User
-        events(userId: String): [Event]
+        user(email: String!): User
         event(_id: ID!): Event
+        events(user: ID): [Event]
+        myCategories(user: ID!): [Category]
     }
 
     type Mutation {
         login(email: String!, password: String!): Auth
-        addUser(username: String!, email: String!, password: String!): Auth
-        addEvent(eventText: String!, eventDay: String, eventDate: String): Event
-        addDetail(detailText: String!, eventId: ID!): Event
+
+        addUser(name: String!, email: String!, password: String!): Auth
+        addEvent(title: String!, description: String, startDate: String!, endDate: String, category: String): Event
+        addCategory(categoryName: String!, color: String!): Category
+
+        editUser(name: String, email: String, password: String): Auth
+        editEvent(title: String, description: String, startDate: String, endDate: String, category: String): Event
+        editCategory(categoryName: String, color: String): Category
+
         deleteUser: User
         deleteEvent(eventId: ID!): User
-        deleteDetail(detailId: ID!, eventId: ID!): Event
-        editEvent(eventText: String, eventDay: String, eventDate: String): Event
+        deleteCategory(categoryName: String!): User
     }
 
     type Auth {

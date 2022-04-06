@@ -1,25 +1,29 @@
 const { Schema, model } = require("mongoose");
 
-const eventTypeSchema = new Schema(
+const categorySchema = new Schema(
     {
-        typename: {
+        categoryName: {
             type: String,
             required: true,
-            unique: true,
             trim: true
         },
         color: {
             type: String,
             required: true,
-            unique: true,
             trim: true
         },
         user: {
             type: Schema.Types.ObjectId,
             ref: "User"
-        }
+        },
+        events: [
+            {
+                type:  Schema.Types.ObjectId,
+                ref: "Event"
+            }
+        ]
     }
 );
 
-const EventType = model("EventType", eventTypeSchema);
-module.exports = EventType;
+const Category = model("Category", categorySchema);
+module.exports = Category;
