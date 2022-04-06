@@ -1,32 +1,39 @@
 const { Schema, model } = require("mongoose");
-const detailSchema = require("./Detail");
 
 const eventSchema = new Schema(
     {
-        eventText: {
+        title: {
             type: String,
-            required: "Please fill out some text for this event.",
+            trim: true,
+            required: "Please enter a name for this event.",
             minlength: 1,
-            maxlength: 120
+            maxlength: 50
+        },
+        description: {
+            type: String,
+            trim: true
+        },
+        startDate: {
+            type: String,
+            required: true
+        },
+        endDate: {
+            type: String,
+            required: false
+        },
+        category: {
+            type:  Schema.Types.ObjectId,
+            ref: "Category"
+        },
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: "User"
         },
         createdAt: {
             type: Date,
             default: Date.now,
             //get: timestamp => dateFormat(timestamp)
-        },
-        username: {
-            type: String,
-            required: true
-        },
-        eventDate: {
-            type: Date,
-            required: false
-        },
-        eventDay: {
-            type: String,
-            required: false
-        },
-        detail: [detailSchema]
+        }
     }
 );
 

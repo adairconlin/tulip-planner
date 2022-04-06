@@ -1,0 +1,21 @@
+{
+  "name": "tulip-planner",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "cd server && npm run seed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adairconlin/tulip-planner.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adairconlin/tulip-planner/issues"
+  },
+  "homepage": "https://github.com/adairconlin/tulip-planner#readme",
+  "description": ""
+}

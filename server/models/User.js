@@ -3,10 +3,9 @@ const bcrypt = require("bcrypt");
 
 const userSchema = new Schema(
     {
-        username: {
+        name: {
             type: String,
             required: true,
-            unique: true,
             trim: true
         },
         email: {
@@ -18,14 +17,24 @@ const userSchema = new Schema(
         password: {
             type: String,
             required: true,
-            minlength: 8
+            minlength: [8, "Password must be at least 8 characters"]
         },
-        event: [
+        events: [
             {
                 type: Schema.Types.ObjectId,
                 ref: "Event"
             }
         ],
+        categories: [
+            {
+                type:  Schema.Types.ObjectId,
+                ref: "Category"
+            }
+        ],
+        createdAt: {
+            type: Date,
+            default: Date.now
+        }
     }
 );
 
