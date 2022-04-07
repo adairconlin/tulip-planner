@@ -7,6 +7,7 @@ const typeDefs = gql`
         email: String
         events: [Event]
         categories: [Category]
+        createdAt: String
     }
     
     type Event {
@@ -17,6 +18,7 @@ const typeDefs = gql`
         endDate: String
         category: Category
         user: User
+        createdAt: String
     }
 
     type Category {
