@@ -17,13 +17,18 @@ const Homepage = () => {
     return (
         <>
             <h1>Homepage</h1>
-            <Link to="/signup">
-                <button>Sign Up</button>
-            </Link>
-            <Link to="/login">
-                <button>Login</button>
-            </Link>
+            { Auth.loggedIn() ? 
             <a href="/" onClick={logout}>Logout</a>
+            :
+            <>
+                <Link to="/signup">
+                    <button>Sign Up</button>
+                </Link>
+                <Link to="/login">
+                    <button>Login</button>
+                </Link>
+            </>
+            }
         </>
     )
 }

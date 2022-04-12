@@ -8,7 +8,7 @@ class AuthService {
     loggedIn() {
         const token = this.getToken();
 
-        return !!token && !this.isTokenExpired(token);
+        return !!token && !this.isTokenExpired(token); 
     }
 
     isTokenExpired(token) {
@@ -34,9 +34,11 @@ class AuthService {
     }
 
     logout() {
-        localStorage.removeItem("id_token");
-        window.location.assign("/");
+        // clear user token and profile data from localStorage
+        localStorage.removeItem("id_token"); 
+        // this will reload the page and reset the state of the application
+        window.location.assign("/"); 
     }
 }
 
-export default new AuthService();
+export default new AuthService(); // instantiates a new version for every component that imports it
