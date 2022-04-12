@@ -60,3 +60,27 @@ export const QUERY_ME_LONG = gql`
         }
     }
 `;
+
+export const QUERY_MY_EVENTS = gql`
+    query myEvents {
+        myEvents {
+            _id
+            title
+            description
+            startDate {
+                day
+                month
+                year
+            }
+            endDate {
+                day
+                month
+                year
+            }
+            category {
+                categoryName
+            }
+            createdAt
+        }
+    }
+`;

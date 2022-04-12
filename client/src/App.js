@@ -1,7 +1,8 @@
 import React from "react";
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Auth from "../../client/src/utils/auth";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -30,6 +31,14 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
+// protects the MyPlanner page by redirecting users to Login page if not signed in
+const PrivateRoute = ({ children }) => {
+  return Auth.loggedIn() ? children : <Navigate to="/login" />;
+}
+// redirects users to their planner when going to the homepage or "/"
+const UserRedirect = ({ children }) => {
+  return Auth.loggedIn() ? <Navigate to="/myplanner" /> : children;
+}
 
 function App() {
   return (
@@ -37,8 +46,18 @@ function App() {
       <BrowserRouter>
         <Header />
           <Routes>
-            <Route path="/" element={ <Homepage />} />
-            <Route path="/myplanner" element={ <MyPlanner />} />
+            <Route path="/" element={
+              <UserRedirect>
+                <Homepage />
+              </UserRedirect>
+              } 
+            />
+            <Route path="/myplanner" element={ 
+              <PrivateRoute>
+                <MyPlanner />
+              </PrivateRoute>
+              }
+            />
             <Route path="/signup" element={ <Signup />} />
             <Route path="/login" element={ <Login />} />
           </Routes>

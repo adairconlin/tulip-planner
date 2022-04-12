@@ -24,16 +24,23 @@ const resolvers = {
                 .populate("events")
                 .populate("categories");
         },
-        events: async(parent, { user }) => {
-            const params = user ? { user } : {};
-            return Event.find(params)
-                .populate("user")
-                .populate("category")
-                .sort({ createdAt: -1 });
+        myEvents: async(parent, context) => {
+            if(context.user) {
+                const events = await Event.find({ user: context.user._id })
+                    .populate("user")
+                    .populate("category")
+                    .sort({ createdAt: -1 });
+                    return events;
+            }
+            throw new AuthenticationError("Not logged in.");
         },
-        myCategories: async(parent, { user }) => {
-            const params = user ? { user } : {};
-            return Category.find(params);
+        myCategories: async(parent, context) => {
+            if(context.user) {
+                const categories = await Category.find({ user: context.user._id })
+                .populate("user");
+                return categories;
+            }
+            throw new AuthenticationError("Not logged in.");
         }
     },
     Mutation: {
