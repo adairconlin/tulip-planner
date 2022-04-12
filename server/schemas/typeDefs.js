@@ -14,11 +14,19 @@ const typeDefs = gql`
         _id: ID
         title: String
         description: String
-        startDate: String
-        endDate: String
+        startDate: Date
+        endDate: Date
         category: Category
         user: User
         createdAt: String
+    }
+
+    type Date {
+        _id: ID
+        day: String
+        month: String
+        year: String
+        events: [Event]
     }
 
     type Category {
@@ -34,6 +42,7 @@ const typeDefs = gql`
         user(email: String!): User
         event(_id: ID!): Event
         myEvents: [Event]
+        myDates: [Date]
         myCategories: [Category]
     }
 
@@ -42,10 +51,11 @@ const typeDefs = gql`
 
         addUser(name: String!, email: String!, password: String!): Auth
         addEvent(title: String!, description: String, startDate: String!, endDate: String, category: String): Event
+        addDate(day: String!, month: String!, year: String!): Date
         addCategory(categoryName: String!, color: String!): Category
 
         editUser(name: String, email: String, password: String): User
-        editEvent(eventId: ID!, title: String, description: String, startDate: String, endDate: String, category: String): Event
+        editEvent(eventId: ID!, title: String, description: String, startDate: ID!, endDate: ID!, category: String): Event
         editCategory(categoryId: ID!, categoryName: String, color: String): Category
 
         deleteUser: User

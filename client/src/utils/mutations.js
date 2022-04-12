@@ -25,3 +25,30 @@ export const LOGIN_USER = gql`
         }
     }
 `;
+
+export const ADD_EVENT = gql`
+    mutation addEvent($title: String!, $description: String, $startDate: String!, $endDate: String $category: String) {
+        addEvent(title: $title, description: $description, startDate: $startDate, endDate: $endDate, category: $category) {
+            title
+            description
+            startDate {
+                day
+                month
+                year
+            }
+            endDate {
+                day
+                month
+                year
+            }
+            category {
+                _id
+                categoryName
+            }
+            user {
+                _id
+                name
+            }
+        }
+    }
+`;

@@ -46,10 +46,22 @@ export const QUERY_ME_LONG = gql`
                 _id
                 title
                 description
-                startDate
-                endDate
+                startDate {
+                    day
+                    month
+                    year
+                }
+                endDate {
+                    day
+                    month
+                    year
+                }
                 category {
                     categoryName
+                }
+                user {
+                    _id
+                    name
                 }
             }
             categories {
@@ -81,6 +93,10 @@ export const QUERY_MY_EVENTS = gql`
                 categoryName
             }
             createdAt
+            user {
+                _id
+                name
+            }
         }
     }
 `;
