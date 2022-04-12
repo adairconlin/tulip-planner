@@ -15,12 +15,12 @@ const eventSchema = new Schema(
             maxlength: 500
         },
         startDate: {
-            type: String,
-            required: true
+            type: Schema.Types.ObjectId,
+            ref: "Date"
         },
         endDate: {
-            type: String,
-            required: false
+            type: Schema.Types.ObjectId,
+            ref: "Date"
         },
         category: {
             type:  Schema.Types.ObjectId,
