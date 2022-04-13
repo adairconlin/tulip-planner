@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Auth from "../../client/src/utils/auth";
 
 import Header from "./components/Header";
+import Menu from "./components/Menu";
 import Footer from "./components/Footer";
 
 import MyPlanner from "./pages/MyPlanner";
@@ -45,6 +46,7 @@ function App() {
     <ApolloProvider client={client}>
       <BrowserRouter>
         <Header />
+        <Menu />
           <Routes>
             <Route path="/" element={
               <UserRedirect>

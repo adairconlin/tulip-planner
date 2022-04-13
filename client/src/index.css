@@ -1,0 +1,58 @@
+html, body, #root {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+}
+
+.font {
+    font-family: kigelia-arabic, sans-serif;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.handwriting {
+    font-family: verveine, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h1 {
+    font-size: 64px;
+}
+
+h2 {
+    font-size: 47px;
+    margin: 0px;
+}
+
+p {
+    font-size: 36px;
+}
+
+p .subtitle {
+    font-size: 28px;
+}
+
+/* Header */
+header {
+    display: fixed;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0px 10px 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+}
+
+/* Menu */
+.menu-overlay {
+    position: absolute;
+    top: 0;
+}
