@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
+const { DateTime } = require("luxon");
 
 const userSchema = new Schema(
     {
@@ -32,8 +33,8 @@ const userSchema = new Schema(
             }
         ],
         createdAt: {
-            type: Date,
-            default: Date.now
+            type: String,
+            default: DateTime.now().toLocaleString(DateTime.DATETIME_MED)
         }
     }
 );

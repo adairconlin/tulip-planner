@@ -1,4 +1,4 @@
-const { User, Event, Category } = require("../models");
+const { User, Event, Date, Category } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 
@@ -7,6 +7,8 @@ const resolvers = {
         me: async (parent, args, context) => {
             if(context.user) {
                 const userData = await User.findOne({ _id: context.user._id })
+                .populate("events")
+                .populate("categories")
                     .select("-_v -password");
                 return userData;
             }
@@ -24,16 +26,49 @@ const resolvers = {
                 .populate("events")
                 .populate("categories");
         },
-        events: async(parent, { user }) => {
-            const params = user ? { user } : {};
-            return Event.find(params)
-                .populate("user")
-                .populate("category")
-                .sort({ createdAt: -1 });
+        myEvents: async(parent, args, context) => {
+            if(context.user) {
+                const myEvent = await Event.find({ user: context.user._id })
+                    .populate("user")
+                    .populate("startDate")
+                    .populate("endDate")
+                    .populate("category")
+                    .sort({ createdAt: -1 });
+                    return myEvent;
+            }
+            throw new AuthenticationError("Not logged in.");
         },
-        myCategories: async(parent, { user }) => {
-            const params = user ? { user } : {};
-            return Category.find(params);
+        myDates: async(parent, args, context) => {
+            if(context.user) {
+                const dates = await Date.find({ user: context.user._id })
+                    .populate("events")
+                    .populate("user");
+                    return dates;
+            }
+            throw new AuthenticationError("Not logged in.");
+        },
+        myCategories: async(parent, context) => {
+            if(context.user) {
+                const categories = await Category.find({ user: context.user._id })
+                .populate("user");
+                return categories;
+            }
+            throw new AuthenticationError("Not logged in.");
+        },
+        todaysDate: async(parent, args, context) => {
+            if(context.user) {
+                const today = await Date.find(
+                    { 
+                        user: { $in: context.user._id }, 
+                        day: { $in: args.day },
+                        month: {$in: args.month },
+                        year: { $in: args.year }
+                    }
+                )
+                    .populate("events");
+                return today;
+            }
+            throw new AuthenticationError("Not logged in.");
         }
     },
     Mutation: {
@@ -58,16 +93,83 @@ const resolvers = {
             return { token, user };
         },
         addEvent: async (parent, args, context) => {
-            if(args.category) {
+            // checks if the category selected exists and then assigns
+            // category's id to args.category for Event.create to use
+            if(args.category.length) {
                 const checkForCategory = await Category.findOne({ category: args.category });
                 if(!checkForCategory) {
                     throw new AuthenticationError("Category does not exist");
                 } 
                 args.category = checkForCategory._id;
+            } else {
+                args.category = null;
             }
 
             if(context.user) {
-                const event = await Event.create({ ...args, user: context.user._id });
+                //create array from startDate string
+                const startDateArr = args.startDate.split(",");
+                const checkStartDate = await Date.find(
+                    { 
+                        user: { $in: context.user._id }, 
+                        day: { $in: startDateArr[0] },
+                        month: {$in: startDateArr[1] },
+                        year: { $in: startDateArr[2] }
+                    }
+                )
+
+                //check if startDate exists for user
+                if(checkStartDate.length) {
+                    args.startDate = checkStartDate._id;
+                } else {
+                    await Date.create({
+                        user: context.user._id,
+                        day: startDateArr[0],
+                        month: startDateArr[1],
+                        year: startDateArr[2]
+                    }).then(data => {
+                        console.log(data);
+                        args.startDate = data._id
+                    })
+                }
+                //check an end date was given
+                if(args.endDate.length) {
+                    const endDateArr = args.endDate.split(",");
+                    const checkEndDate = await Date.find(
+                        { 
+                            user: { $in: context.user._id }, 
+                            day: { $in: endDateArr[0] },
+                            month: {$in: endDateArr[1] },
+                            year: { $in: endDateArr[2] }
+                        }
+                    )
+                    
+                    // check if endDate exists for user
+                    if(checkEndDate.length) {
+                        args.endDate = checkEndDate._id;
+                    } else {
+                        await Date.create({
+                            user: context.user._id,
+                            day: endDateArr[0],
+                            month: endDateArr[1],
+                            year: endDateArr[2]
+                        }).then(data => {
+                            args.endDate = data._id
+                        })
+                    }
+                } else {
+                    args.endDate = null;
+                }
+
+                const event = await Event.create({ 
+                    ...args, 
+                    user: context.user._id,
+                });
+
+                await Date.updateMany(
+                    { _id: { $in: [ args.startDate, args.endDate ] } },
+                    { $push: { events: event._id } },
+                    { new: true }
+                );
 
                 await User.findByIdAndUpdate(
                     { _id: context.user._id },

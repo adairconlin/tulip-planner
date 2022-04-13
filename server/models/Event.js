@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const { DateTime } = require("luxon");
 
 const eventSchema = new Schema(
     {
@@ -6,20 +7,20 @@ const eventSchema = new Schema(
             type: String,
             trim: true,
             required: "Please enter a name for this event.",
-            minlength: 1,
             maxlength: 50
         },
         description: {
             type: String,
-            trim: true
+            trim: true,
+            maxlength: 500
         },
         startDate: {
-            type: String,
-            required: true
+            type: Schema.Types.ObjectId,
+            ref: "Date"
         },
         endDate: {
-            type: String,
-            required: false
+            type: Schema.Types.ObjectId,
+            ref: "Date"
         },
         category: {
             type:  Schema.Types.ObjectId,
@@ -30,9 +31,8 @@ const eventSchema = new Schema(
             ref: "User"
         },
         createdAt: {
-            type: Date,
-            default: Date.now,
-            //get: timestamp => dateFormat(timestamp)
+            type: String,
+            default: DateTime.now().toLocaleString(DateTime.DATETIME_MED)
         }
     }
 );
