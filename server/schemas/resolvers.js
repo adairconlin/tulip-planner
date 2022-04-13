@@ -100,7 +100,7 @@ const resolvers = {
                     }
                 )
 
-                //check if startDate exists
+                //check if startDate exists for user
                 if(checkStartDate.length) {
                     args.startDate = checkStartDate._id;
                 } else {
@@ -113,27 +113,30 @@ const resolvers = {
                         args.startDate = data._id
                     })
                 }
-                //check if endDate exists
-                if(args.endDate) {
+                //check an end date was given
+                if(args.endDate.length) {
+                    const endDateArr = args.endDate.split(",");
                     const checkEndDate = await Date.find(
                         { 
                             user: { $in: context.user._id }, 
-                            day: { $in: startDateArr[0] },
-                            month: {$in: startDateArr[1] },
-                            year: { $in: startDateArr[2] }
+                            day: { $in: endDateArr[0] },
+                            month: {$in: endDateArr[1] },
+                            year: { $in: endDateArr[2] }
                         }
                     )
-                    if(checkEndDate) {
+                    
+                    // check if endDate exists for user
+                    if(checkEndDate.length) {
                         args.endDate = checkEndDate._id;
                     } else {
-                        const newEndDate = await Date.create({
+                        await Date.create({
                             user: context.user._id,
-                            day: args.endDate.day,
-                            month: args.endDate.month,
-                            year: args.endDate.year
-                        });
-
-                        args.endDate = newEndDate._id
+                            day: endDateArr[0],
+                            month: endDateArr[1],
+                            year: endDateArr[2]
+                        }).then(data => {
+                            args.endDate = data._id
+                        })
                     }
                 }
 
