@@ -38,9 +38,9 @@ const resolvers = {
             }
             throw new AuthenticationError("Not logged in.");
         },
-        myDates: async(parent, context) => {
+        myDates: async(parent, args, context) => {
             if(context.user) {
-                const dates = await Dates.find({ user: context.user._id })
+                const dates = await Date.find({ user: context.user._id })
                     .populate("events")
                     .populate("user");
                     return dates;
@@ -52,6 +52,21 @@ const resolvers = {
                 const categories = await Category.find({ user: context.user._id })
                 .populate("user");
                 return categories;
+            }
+            throw new AuthenticationError("Not logged in.");
+        },
+        todaysDate: async(parent, args, context) => {
+            if(context.user) {
+                const today = await Date.find(
+                    { 
+                        user: { $in: context.user._id }, 
+                        day: { $in: args.day },
+                        month: {$in: args.month },
+                        year: { $in: args.year }
+                    }
+                )
+                    .populate("events");
+                return today;
             }
             throw new AuthenticationError("Not logged in.");
         }
@@ -80,12 +95,14 @@ const resolvers = {
         addEvent: async (parent, args, context) => {
             // checks if the category selected exists and then assigns
             // category's id to args.category for Event.create to use
-            if(args.category) {
+            if(args.category.length) {
                 const checkForCategory = await Category.findOne({ category: args.category });
                 if(!checkForCategory) {
                     throw new AuthenticationError("Category does not exist");
                 } 
                 args.category = checkForCategory._id;
+            } else {
+                args.category = null;
             }
 
             if(context.user) {
@@ -110,6 +127,7 @@ const resolvers = {
                         month: startDateArr[1],
                         year: startDateArr[2]
                     }).then(data => {
+                        console.log(data);
                         args.startDate = data._id
                     })
                 }
@@ -138,6 +156,8 @@ const resolvers = {
                             args.endDate = data._id
                         })
                     }
+                } else {
+                    args.endDate = null;
                 }
 
                 const event = await Event.create({ 
@@ -146,7 +166,7 @@ const resolvers = {
                 });
 
                 await Date.updateMany(
-                    { _id: { $in: [args.startDate, args.endDate] } },
+                    { _id: { $in: [ args.startDate, args.endDate ] } },
                     { $push: { events: event._id } },
                     { new: true }
                 );

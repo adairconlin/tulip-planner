@@ -27,6 +27,7 @@ const typeDefs = gql`
         month: String
         year: String
         events: [Event]
+        user: [User]
     }
 
     type Category {
@@ -44,6 +45,7 @@ const typeDefs = gql`
         myEvents: [Event]
         myDates: [Date]
         myCategories: [Category]
+        todaysDate(day: String!, month: String!, year: String!): [Date]
     }
 
     type Mutation {

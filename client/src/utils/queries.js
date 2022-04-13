@@ -100,3 +100,33 @@ export const QUERY_MY_EVENTS = gql`
         }
     }
 `;
+
+export const QUERY_MY_DATES = gql`
+    query myDates {
+        myDates {
+            _id
+            day
+            month
+            year
+            events {
+                _id
+                title
+            }
+        }
+    }
+`;
+
+export const QUERY_TODAY = gql`
+    query todaysDate($day: String!, $month: String!, $year: String!) {
+        todaysDate(day: $day, month: $month, year: $year) {
+            _id
+            day
+            month
+            year
+            events {
+                _id
+                title
+            }
+        }
+    }
+`;
