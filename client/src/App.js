@@ -45,25 +45,25 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <BrowserRouter>
-        <Header />
-        <Menu />
-          <Routes>
-            <Route path="/" element={
-              <UserRedirect>
-                <Homepage />
-              </UserRedirect>
-              } 
-            />
-            <Route path="/myplanner" element={ 
-              <PrivateRoute>
-                <MyPlanner />
-              </PrivateRoute>
-              }
-            />
-            <Route path="/signup" element={ <Signup />} />
-            <Route path="/login" element={ <Login />} />
-          </Routes>
-        <Footer />
+          <Header />
+          <Menu />
+            <Routes>
+              <Route path="/" element={
+                <UserRedirect>
+                  <Homepage />
+                </UserRedirect>
+                } 
+              />
+              <Route path="/myplanner" element={ 
+                <PrivateRoute>
+                  <MyPlanner />
+                </PrivateRoute>
+                }
+              />
+              <Route path="/signup" element={ <Signup />} />
+              <Route path="/login" element={ <Login />} />
+            </Routes>
+          <Footer />
       </BrowserRouter>
     </ApolloProvider>
   );

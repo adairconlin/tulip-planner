@@ -43,13 +43,14 @@ const Calendar = () => {
     };
 
     return (
-        <>
-            <h2>My Calendar</h2>
-            <h2>{DateTime.local(currentYear, activeMonth, 1).monthLong} {DateTime.local(activeYear, activeMonth, 1).year}</h2>
-            <button onClick={() => changeActiveMonth("backward")}>Previous</button>
-            <button onClick={() => changeActiveMonth("forward")}>Next</button>
-            <div>{days}</div>
-        </>
+        <section className="calendar">
+            <div className="calendar-top">
+                <button className="font subtitle" onClick={() => changeActiveMonth("backward")}> &#60; </button>
+                <p className="font">{DateTime.local(currentYear, activeMonth, 1).monthLong} {DateTime.local(activeYear, activeMonth, 1).year}</p>
+                <button className="font subtitle" onClick={() => changeActiveMonth("forward")}> &#62; </button>
+            </div>
+            <div className="days">{days}</div>
+        </section>
     )
 }
 

@@ -52,15 +52,15 @@ const DayLayout = ({ day, month, year, i }) => {
     }
 
     return (
-        <>
-            <div key={i} >Date: {day}</div>
+        <article className="day">
+            <div className="font date" key={i} >{day}</div>
             {todaysEvents &&
                 <div>
                     <p>{todaysEvents[0].title}</p>
                 </div>
             }
             <button onClick={createAnEvent}>Add Event</button>
-        </>
+        </article>
     )
 }
 
