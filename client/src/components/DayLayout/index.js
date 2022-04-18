@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_EVENT } from "../../utils/mutations";
 import { QUERY_TODAY } from "../../utils/queries";
 
 const DayLayout = ({ day, month, year, i }) => {
+    const [btnDisplay, setBtnDisplay] = useState(true);
+    const [btnText, setBtnText] = useState(true);
     const [addEvent, { error }] = useMutation(ADD_EVENT);
     const dateInfo = {
         day: day.toString(),
@@ -16,10 +18,6 @@ const DayLayout = ({ day, month, year, i }) => {
     });
 
     const todaysEvents = data?.todaysDate[0]?.events;
-
-    if(todaysEvents) {
-        console.log(day, todaysEvents);
-    }
 
 
     const tempForm = {
@@ -38,28 +36,55 @@ const DayLayout = ({ day, month, year, i }) => {
                 variables: { ...tempForm }
             });
             console.log("success.");
-            console.log(data);
         } catch(e) {
             console.log(e);
             console.log(error);
         }
     };
 
+    const changeBtnDisplay = (e) => {
+        setBtnDisplay(!btnDisplay);
+        const btn = e.target.children[0].children[0];
+
+        if(btnDisplay) {
+            btn.style.display = "block";
+        } else if (!btnDisplay) {
+            btn.style.display = "none";
+        }
+    }
+
+    const changeBtnText = (e) => {
+        setBtnText(!btnText);
+
+        if(btnText) {
+            e.target.textContent = "+ Add Event"
+        } else if(!btnText) {
+            e.target.textContent = "+"
+        }
+    }
+
     if(loading) {
         return (
-            <p>Loading Dates</p>
+            <article className="day">
+                <button className="addEventBtn" onClick={createAnEvent}>+</button>
+                <div className="font date" key={i} >
+                    <span>{day}</span>
+                </div>
+            </article>
         )
     }
 
     return (
-        <article className="day">
-            <div className="font date" key={i} >{day}</div>
+        <article className="day" onMouseEnter={changeBtnDisplay} onMouseLeave={changeBtnDisplay}>
+            <div className="font date" key={i} >
+                <button className="addEventBtn" onMouseEnter={changeBtnText} onMouseLeave={changeBtnText} onClick={createAnEvent}>+</button>
+                <span>{day}</span>
+            </div>
             {todaysEvents &&
                 <div>
                     <p>{todaysEvents[0].title}</p>
                 </div>
             }
-            <button onClick={createAnEvent}>Add Event</button>
         </article>
     )
 }

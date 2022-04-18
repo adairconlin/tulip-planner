@@ -238,7 +238,18 @@ footer p {
 }
 
 .date {
-    float: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.date span {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.addEventBtn {
+    display: none;
 }
     /*          */
 
