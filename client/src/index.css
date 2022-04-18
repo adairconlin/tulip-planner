@@ -228,10 +228,11 @@ footer p {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin: 0px auto;
 }
     /* Day Layout */
 .day {
-    width: 11vw;
+    width: 11.7vw;
     height: 6vw;
     border: 1px solid black;
     padding: 5px;
@@ -250,6 +251,25 @@ footer p {
 
 .addEventBtn {
     display: none;
+}
+
+.eventFormBackdrop {
+    background:rgba(0, 0, 0, 0.65);
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.eventFormContainer {
+    background-color: white;
+    border-radius: 25px;
+    width: 75%;
+    height: 75%;
+    margin: 75px auto;
 }
     /*          */
 

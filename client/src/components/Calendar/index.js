@@ -13,17 +13,12 @@ const Calendar = () => {
         return DateTime.local(activeYear, activeMonth).daysInMonth;
     }
 
-    // Adds components to an array called "days" based on
-    // the amount of days in the month. Each day is its own
-    // component that passes in its unique date information
     let days = [];
     for(let i = 0; i < getDays(); i++) {
         days.push(<DayLayout day={i + 1} month={activeMonth} year={activeYear} key={i} />);
     }
 
     // Changes the month and year based on current month
-    // i.e. If it's January, it will go backwards to December
-    // of the previous year
     const changeActiveMonth = (e) => {
         if(e === "forward") {
             if(activeMonth < 12) {
