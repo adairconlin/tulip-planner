@@ -39,10 +39,10 @@ const Login = () => {
             <h1>Login</h1>
             <form onSubmit={handelUserLogin} autoComplete="off">
                 <label htmlFor="email">Email:</label>
-                <input name="email" type="email" onBlur={handleFormChange} />
+                <input name="email" type="email" onChange={handleFormChange} />
 
                 <label htmlFor="password">Password:</label>
-                <input name="password" type="password" onBlur={handleFormChange} />
+                <input name="password" type="password" onChange={handleFormChange} />
 
                 <button type="submit">Sign up</button>
             </form>

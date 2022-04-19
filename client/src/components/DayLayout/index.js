@@ -14,10 +14,9 @@ const DayLayout = ({ day, month, year, i }) => {
 
     const { loading, data } = useQuery(QUERY_TODAY, {
         variables: { day: dateInfo.day, month: dateInfo.month, year: dateInfo.year }
-    });
+    });    
 
     const todaysEvents = data?.todaysDate[0]?.events;
-
 
     const [formState, setFormState] = useState(false);
     const toggleEventForm = () => {
@@ -26,12 +25,12 @@ const DayLayout = ({ day, month, year, i }) => {
 
     const changeBtnDisplay = (e) => {
         setBtnDisplay(!btnDisplay);
-        const btn = e.target.children[0]?.children[0];
-
+        let btn = e.target.querySelector("button");
+        
         if(btn?.style) {
             if(btnDisplay) {
-            btn.style.display = "block";
-            } else if (!btnDisplay) {
+                btn.style.display = "block";
+            } else if(!btnDisplay) {
                 btn.style.display = "none";
             }
         }
@@ -69,11 +68,14 @@ const DayLayout = ({ day, month, year, i }) => {
                         onClick={toggleEventForm}>+</button>
                     <span>{day}</span>
                 </div>
-                {todaysEvents &&
-                    <div>
-                        <p>{todaysEvents[0].title}</p>
-                    </div>
-                }
+                <div className="eventList">
+                    {todaysEvents?.length ?
+                            todaysEvents?.map(event => {
+                                return <p key={event?._id}>{event?.title}</p>
+                            })
+                        : ""
+                    }
+                </div>
             </article>
         </>
     )

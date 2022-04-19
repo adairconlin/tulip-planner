@@ -119,7 +119,7 @@ const resolvers = {
 
                 //check if startDate exists for user
                 if(checkStartDate.length) {
-                    args.startDate = checkStartDate._id;
+                    args.startDate = checkStartDate[0]._id;
                 } else {
                     await Date.create({
                         user: context.user._id,
@@ -127,7 +127,6 @@ const resolvers = {
                         month: startDateArr[1],
                         year: startDateArr[2]
                     }).then(data => {
-                        console.log(data);
                         args.startDate = data._id
                     })
                 }
@@ -160,13 +159,13 @@ const resolvers = {
                     args.endDate = null;
                 }
 
-                const event = await Event.create({ 
+                const event = await Event.create({
                     ...args, 
                     user: context.user._id,
                 });
 
-                await Date.updateMany(
-                    { _id: { $in: [ args.startDate, args.endDate ] } },
+                await Date.findByIdAndUpdate(
+                    { _id: args.startDate },
                     { $push: { events: event._id } },
                     { new: true }
                 );

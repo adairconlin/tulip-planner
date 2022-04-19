@@ -41,13 +41,13 @@ const Signup = () => {
             <h1>Signup</h1>
             <form onSubmit={handelUserSignup} autoComplete="off">
                 <label htmlFor="name">Name:</label>
-                <input name="name" type="name" onBlur={handleFormChange} />
+                <input name="name" type="name" onChange={handleFormChange} />
 
                 <label htmlFor="email">Email:</label>
-                <input name="email" type="email" onBlur={handleFormChange} />
+                <input name="email" type="email" onChange={handleFormChange} />
 
                 <label htmlFor="password">Password:</label>
-                <input name="password" type="password" onBlur={handleFormChange} />
+                <input name="password" type="password" onChange={handleFormChange} />
 
                 <button type="submit">Sign up</button>
             </form>
