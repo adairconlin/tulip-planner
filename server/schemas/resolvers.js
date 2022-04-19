@@ -7,8 +7,8 @@ const resolvers = {
         me: async (parent, args, context) => {
             if(context.user) {
                 const userData = await User.findOne({ _id: context.user._id })
-                .populate("events")
-                .populate("categories")
+                    .populate("events")
+                    .populate("categories")
                     .select("-_v -password");
                 return userData;
             }
@@ -26,6 +26,16 @@ const resolvers = {
                 .populate("events")
                 .populate("categories");
         },
+        event: async (parent, args, context) => {
+            if(context.user) {
+                const findEvent = await Event.findOne({ _id: args._id })
+                    .populate("startDate")
+                    .populate("endDate")
+                    .populate("category");
+                return findEvent;
+            }
+            throw new AuthenticationError("Not logged in.");
+        },
         myEvents: async(parent, args, context) => {
             if(context.user) {
                 const myEvent = await Event.find({ user: context.user._id })
@@ -34,7 +44,7 @@ const resolvers = {
                     .populate("endDate")
                     .populate("category")
                     .sort({ createdAt: -1 });
-                    return myEvent;
+                return myEvent;
             }
             throw new AuthenticationError("Not logged in.");
         },
@@ -43,7 +53,7 @@ const resolvers = {
                 const dates = await Date.find({ user: context.user._id })
                     .populate("events")
                     .populate("user");
-                    return dates;
+                return dates;
             }
             throw new AuthenticationError("Not logged in.");
         },

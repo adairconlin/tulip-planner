@@ -101,6 +101,29 @@ export const QUERY_MY_EVENTS = gql`
     }
 `;
 
+export const QUERY_EVENT = gql`
+    query event($_id: ID!) {
+        event(_id: $_id) {
+            _id
+            title
+            description
+            startDate {
+                day
+                month
+                year
+            }
+            endDate {
+                day
+                month
+                year
+            }
+            category {
+                categoryName
+            }
+        }
+    }
+`;
+
 export const QUERY_MY_DATES = gql`
     query myDates {
         myDates {

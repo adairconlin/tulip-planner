@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_TODAY } from "../../utils/queries";
 import EventForm from "../EventForm";
+import EventDetails from "../EventDetails";
 
 const DayLayout = ({ day, month, year, i }) => {
     const [btnDisplay, setBtnDisplay] = useState(true);
@@ -23,20 +24,28 @@ const DayLayout = ({ day, month, year, i }) => {
         setFormState(!formState);
     }
 
-    const changeBtnDisplay = (e) => {
+    const [eventState, setEventState] = useState(false);
+    const toggleEventDetails = e => {
+        console.log(e.target);
+        //setEventState(!eventState);
+    }
+
+    const changeBtnDisplay = e => {
         setBtnDisplay(!btnDisplay);
         let btn = e.target.querySelector("button");
         
         if(btn?.style) {
             if(btnDisplay) {
-                btn.style.display = "block";
+                btn.style.visibility = "visible";
+                e.target.style = "overflow-y: auto";
             } else if(!btnDisplay) {
-                btn.style.display = "none";
+                btn.style.visibility = "hidden";
+                e.target.style = "overflow-y: hidden";
             }
         }
     }
 
-    const changeBtnText = (e) => {
+    const changeBtnText = e => {
         setBtnText(!btnText);
 
         if(btnText) {
@@ -49,8 +58,8 @@ const DayLayout = ({ day, month, year, i }) => {
     if(loading) {
         return (
             <article className="day">
-                <button className="addEventBtn">+</button>
-                <div className="font date" key={i} >
+                <div className="font date" key={i}>
+                    <button className="addEventBtn">+</button>
                     <span>{day}</span>
                 </div>
             </article>
@@ -62,16 +71,20 @@ const DayLayout = ({ day, month, year, i }) => {
             {formState && <EventForm currentDate={dateInfo} onClose={toggleEventForm} />}
             <article className="day" onMouseEnter={changeBtnDisplay} onMouseLeave={changeBtnDisplay}>
                 <div className="font date" key={i} >
-                    <button className="addEventBtn" 
-                        onMouseEnter={changeBtnText} 
-                        onMouseLeave={changeBtnText} 
+                    <button className="addEventBtn"
+                        onMouseEnter={changeBtnText}
+                        onMouseLeave={changeBtnText}
                         onClick={toggleEventForm}>+</button>
                     <span>{day}</span>
                 </div>
                 <div className="eventList">
                     {todaysEvents?.length ?
                             todaysEvents?.map(event => {
-                                return <p key={event?._id}>{event?.title}</p>
+                                return <a key={event?._id}
+                                            href={`/myplanner/event/${event._id}`}
+                                            onClick={toggleEventDetails}
+                                            className="handwriting white subtitle event-default">{event?.title}</a>
+                                
                             })
                         : ""
                     }
