@@ -1,10 +1,12 @@
-import React from "react";
-import { useMutation, useQuery } from "@apollo/client";
-import { ADD_EVENT } from "../../utils/mutations";
+import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
 import { QUERY_TODAY } from "../../utils/queries";
+import EventForm from "../EventForm";
+import EventDetails from "../EventDetails";
 
 const DayLayout = ({ day, month, year, i }) => {
-    const [addEvent, { error }] = useMutation(ADD_EVENT);
+    const [btnDisplay, setBtnDisplay] = useState(true);
+    const [btnText, setBtnText] = useState(true);
     const dateInfo = {
         day: day.toString(),
         month: month.toString(),
@@ -13,53 +15,81 @@ const DayLayout = ({ day, month, year, i }) => {
 
     const { loading, data } = useQuery(QUERY_TODAY, {
         variables: { day: dateInfo.day, month: dateInfo.month, year: dateInfo.year }
-    });
+    });    
 
     const todaysEvents = data?.todaysDate[0]?.events;
 
-    if(todaysEvents) {
-        console.log(day, todaysEvents);
+    const [formState, setFormState] = useState(false);
+    const toggleEventForm = () => {
+        setFormState(!formState);
     }
 
-
-    const tempForm = {
-        title: "Test Title",
-        description: "Test a description!",
-        startDate: `${day},${month},${year}`,
-        endDate: "",
-        category: ""
+    const [eventState, setEventState] = useState(false);
+    const toggleEventDetails = e => {
+        console.log(e.target);
+        //setEventState(!eventState);
     }
 
-    const createAnEvent = async (e) => {
-        e.preventDefault();
-
-        try {
-            const { data } = await addEvent({
-                variables: { ...tempForm }
-            });
-            console.log("success.");
-            console.log(data);
-        } catch(e) {
-            console.log(e);
-            console.log(error);
+    const changeBtnDisplay = e => {
+        setBtnDisplay(!btnDisplay);
+        let btn = e.target.querySelector("button");
+        
+        if(btn?.style) {
+            if(btnDisplay) {
+                btn.style.visibility = "visible";
+                e.target.style = "overflow-y: auto";
+            } else if(!btnDisplay) {
+                btn.style.visibility = "hidden";
+                e.target.style = "overflow-y: hidden";
+            }
         }
-    };
+    }
+
+    const changeBtnText = e => {
+        setBtnText(!btnText);
+
+        if(btnText) {
+            e.target.textContent = "+ Add Event"
+        } else if(!btnText) {
+            e.target.textContent = "+"
+        }
+    }
 
     if(loading) {
         return (
-            <p>Loading Dates</p>
+            <article className="day">
+                <div className="font date" key={i}>
+                    <button className="addEventBtn">+</button>
+                    <span>{day}</span>
+                </div>
+            </article>
         )
     }
 
     return (
         <>
-            <div key={i} >Date: {day}</div>
-            {todaysEvents &&
-                <div>
-                    <p>{todaysEvents[0].title}</p>
+            {formState && <EventForm currentDate={dateInfo} onClose={toggleEventForm} />}
+            <article className="day" onMouseEnter={changeBtnDisplay} onMouseLeave={changeBtnDisplay}>
+                <div className="font date" key={i} >
+                    <button className="addEventBtn"
+                        onMouseEnter={changeBtnText}
+                        onMouseLeave={changeBtnText}
+                        onClick={toggleEventForm}>+</button>
+                    <span>{day}</span>
                 </div>
-            }
-            <button onClick={createAnEvent}>Add Event</button>
+                <div className="eventList">
+                    {todaysEvents?.length ?
+                            todaysEvents?.map(event => {
+                                return <a key={event?._id}
+                                            href={`/myplanner/event/${event._id}`}
+                                            onClick={toggleEventDetails}
+                                            className="handwriting white subtitle event-default">{event?.title}</a>
+                                
+                            })
+                        : ""
+                    }
+                </div>
+            </article>
         </>
     )
 }

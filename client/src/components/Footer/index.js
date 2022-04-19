@@ -3,7 +3,8 @@ import React from "react";
 const Footer = () => {
     return (
         <footer>
-            <h1>Thank you!</h1>
+            <a href="/" className="subtitle main-red handwriting">Tulip</a>
+            <p className="subtitle main-red handwriting">©2022 Adair Conlin</p>
         </footer>
     )
 }

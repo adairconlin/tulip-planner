@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Auth from "../../client/src/utils/auth";
 
 import Header from "./components/Header";
+import Menu from "./components/Menu";
+import EventDetails from "./components/EventDetails";
 import Footer from "./components/Footer";
 
 import MyPlanner from "./pages/MyPlanner";
@@ -44,24 +46,31 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <BrowserRouter>
-        <Header />
-          <Routes>
-            <Route path="/" element={
-              <UserRedirect>
-                <Homepage />
-              </UserRedirect>
-              } 
-            />
-            <Route path="/myplanner" element={ 
-              <PrivateRoute>
-                <MyPlanner />
-              </PrivateRoute>
-              }
-            />
-            <Route path="/signup" element={ <Signup />} />
-            <Route path="/login" element={ <Login />} />
-          </Routes>
-        <Footer />
+          <Header />
+          <Menu />
+            <Routes>
+              <Route path="/" element={
+                <UserRedirect>
+                  <Homepage />
+                </UserRedirect>
+                } 
+              />
+              <Route path="/myplanner" element={ 
+                <PrivateRoute>
+                  <MyPlanner />
+                </PrivateRoute>
+                }
+              />
+              <Route path="/myplanner/event/:id" element={ 
+                <PrivateRoute>
+                  <EventDetails />
+                </PrivateRoute>
+                } 
+              />
+              <Route path="/signup" element={ <Signup />} />
+              <Route path="/login" element={ <Login />} />
+            </Routes>
+          <Footer />
       </BrowserRouter>
     </ApolloProvider>
   );

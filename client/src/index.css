@@ -1,0 +1,296 @@
+html, body, #root {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.main, footer {
+    padding: 0px 30px;
+}
+
+/* My colors */
+:root {
+    --main-red: #BC938B;
+    --main-green: #898E77;
+    --med-red: #D1B2AD;
+    --light-red: #D9D1CF;
+    --sky-blue: #BBD2D0;
+}
+
+.main-red {
+    color: var(--main-red);
+}
+
+.main-green {
+    color: var(--main-green);
+}
+
+.med-red {
+    color: var(--med-red);
+}
+
+.light-red {
+    color: var(--light-red);
+}
+
+.sky-blue {
+    color: var(--sky-blue);
+}
+
+.white {
+    color: white;
+}
+
+.font {
+    font-family: kigelia-arabic, sans-serif;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.handwriting {
+    font-family: verveine, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h1 {
+    font-size: 64px;
+}
+
+h2 {
+    font-size: 47px;
+    margin: 0px;
+}
+
+.para, p {
+    font-size: 36px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.subtitle {
+    font-size: 28px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Header */
+header {
+    display: fixed;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0px 10px 0px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+}
+
+    /* Menu */
+.menu-overlay {
+    position: absolute;
+    top: 0;
+}
+
+.menu-overlay button {
+    margin-top: 0px;
+    margin-bottom: auto;
+    margin-left: 30px;
+}
+
+.menu-open {
+    height: 100vh;
+    width: 20vw;
+    background-color: white;
+}
+
+.menu-open div {
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+    /* Hero */
+.hero {
+    margin: 100px auto 100px auto;
+    text-align: center;
+}
+
+.hero hr {
+    background-color: var(--main-red);
+    height: 3px;
+    border-width: 0; 
+    width: 45%;
+}
+
+svg:hover line {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 1000;
+    animation: zoom 10s linear forwards;
+}
+
+@keyframes zoom {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+    /*       */
+
+.mid {
+    background-color: var(--main-red);
+    padding: 100px 200px;
+}
+
+.login-section {
+    padding: 100px 200px;
+    background-color: var(--main-green);
+    text-align: center;
+}
+
+.login-section hr {
+    background-color: white;
+    height: 3px;
+    border-width: 0;
+    width: 45%;
+}
+
+.login-section div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-section div button {
+    font-size: 2vw;
+}
+
+.btn-select {
+    width: 20%;
+    padding: 8px 60px;
+    border: none;
+    border-radius: 50px;
+    margin-bottom: 50px;
+}
+/*         */
+
+/* Footer */
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-self: flex-end;
+    flex-shrink: 0;
+}
+
+footer p {
+    margin: 10px 0px;
+}
+/*        */
+
+/* MyPlanner */
+.today {
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+    /* Calendar */
+.calendar {
+    margin: 10px 75px;
+    padding: 30px;
+    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 0.25) inset;
+    border-radius: 20px;
+
+}
+
+.calendar-top {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.calendar-top button {
+    border-radius: 100%;
+    padding: 5px 10px;
+    
+}
+.days {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0px auto;
+}
+    /* Day Layout */
+.day {
+    width: 11.7vw;
+    height: 6vw;
+    border: 1px solid black;
+    padding: 5px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.date {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.date span {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.addEventBtn {
+    visibility: hidden;
+}
+
+.eventFormBackdrop, .eventDetailBackdrop {
+    background:rgba(0, 0, 0, 0.65);
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.eventFormContainer, .eventDetailContainer {
+    background-color: white;
+    border-radius: 25px;
+    width: 75%;
+    height: 75%;
+    margin: 75px auto;
+}
+
+.eventList {
+    display: flex;
+    flex-direction: column;
+}
+
+.eventList a {
+    margin-bottom: 5px;
+    padding: 0px 10px;
+}
+
+.event-default {
+    background-color: gray;
+}
+    /*          */
+
+/*                */

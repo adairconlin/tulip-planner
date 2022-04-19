@@ -7,8 +7,8 @@ const resolvers = {
         me: async (parent, args, context) => {
             if(context.user) {
                 const userData = await User.findOne({ _id: context.user._id })
-                .populate("events")
-                .populate("categories")
+                    .populate("events")
+                    .populate("categories")
                     .select("-_v -password");
                 return userData;
             }
@@ -26,6 +26,16 @@ const resolvers = {
                 .populate("events")
                 .populate("categories");
         },
+        event: async (parent, args, context) => {
+            if(context.user) {
+                const findEvent = await Event.findOne({ _id: args._id })
+                    .populate("startDate")
+                    .populate("endDate")
+                    .populate("category");
+                return findEvent;
+            }
+            throw new AuthenticationError("Not logged in.");
+        },
         myEvents: async(parent, args, context) => {
             if(context.user) {
                 const myEvent = await Event.find({ user: context.user._id })
@@ -34,7 +44,7 @@ const resolvers = {
                     .populate("endDate")
                     .populate("category")
                     .sort({ createdAt: -1 });
-                    return myEvent;
+                return myEvent;
             }
             throw new AuthenticationError("Not logged in.");
         },
@@ -43,7 +53,7 @@ const resolvers = {
                 const dates = await Date.find({ user: context.user._id })
                     .populate("events")
                     .populate("user");
-                    return dates;
+                return dates;
             }
             throw new AuthenticationError("Not logged in.");
         },
@@ -119,7 +129,7 @@ const resolvers = {
 
                 //check if startDate exists for user
                 if(checkStartDate.length) {
-                    args.startDate = checkStartDate._id;
+                    args.startDate = checkStartDate[0]._id;
                 } else {
                     await Date.create({
                         user: context.user._id,
@@ -127,7 +137,6 @@ const resolvers = {
                         month: startDateArr[1],
                         year: startDateArr[2]
                     }).then(data => {
-                        console.log(data);
                         args.startDate = data._id
                     })
                 }
@@ -160,13 +169,13 @@ const resolvers = {
                     args.endDate = null;
                 }
 
-                const event = await Event.create({ 
+                const event = await Event.create({
                     ...args, 
                     user: context.user._id,
                 });
 
-                await Date.updateMany(
-                    { _id: { $in: [ args.startDate, args.endDate ] } },
+                await Date.findByIdAndUpdate(
+                    { _id: args.startDate },
                     { $push: { events: event._id } },
                     { new: true }
                 );
