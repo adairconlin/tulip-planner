@@ -28,8 +28,8 @@ const DayLayout = ({ day, month, year, i }) => {
     const [currentEvent, setCurrentEvent] = useState(null);
     const toggleEventDetails = id => {
         if(eventState) {
-            setCurrentEvent(null);
             window.location.assign("/myplanner");
+            setCurrentEvent(null);
         } else if(!eventState) {
             setCurrentEvent(id);
             setEventState(!eventState);
@@ -74,8 +74,10 @@ const DayLayout = ({ day, month, year, i }) => {
 
     return (
         <>
-            {formState && <EventForm currentDate={dateInfo} onClose={toggleEventForm} dateInfo={dateInfo} />}
-            {eventState && <EventDetails eventId={currentEvent} onClose={toggleEventDetails} />}
+            {formState && 
+                <EventForm currentDate={dateInfo} onClose={toggleEventForm} />}
+            {eventState && 
+                <EventDetails eventId={currentEvent} onClose={toggleEventDetails} eventDate={dateInfo} />}
             <article className="day" onMouseEnter={changeBtnDisplay} onMouseLeave={changeBtnDisplay}>
                 <div className="font date" key={i} >
                     <button className="addEventBtn"

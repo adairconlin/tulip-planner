@@ -4,8 +4,8 @@ import { QUERY_EVENT } from "../../utils/queries";
 import { EDIT_EVENT } from "../../utils/mutations";
 const { DateTime } = require("luxon");
 
-const EventDetails = ({ eventId, onClose, dateInfo }) => {
-    const todaysDate = DateTime.local(dateInfo?.year, dateInfo?.month, dateInfo?.day).toLocaleString(DateTime.DATE_HUGE);
+const EventDetails = ({ eventId, onClose, eventDate }) => {
+    const todaysDate = DateTime.local(parseInt(eventDate.year), parseInt(eventDate.month), parseInt(eventDate.day)).toLocaleString(DateTime.DATE_HUGE);
     const { loading, data } = useQuery(QUERY_EVENT, {
         variables: { _id: eventId }
     });
@@ -52,7 +52,6 @@ const EventDetails = ({ eventId, onClose, dateInfo }) => {
 
     const [editEvent, { error }] = useMutation(EDIT_EVENT);
     const updateEvent = async (e) => {
-        console.log("test updateEvent");
         e.preventDefault();
         try {
             const { data } = await editEvent({
