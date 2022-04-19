@@ -52,3 +52,29 @@ export const ADD_EVENT = gql`
         }
     }
 `;
+
+export const EDIT_EVENT = gql`
+    mutation editEvent($eventId: ID!, $title: String, $description: String, $category: String) {
+        editEvent(eventId: $eventId, title: $title, description: $description, category: $category) {
+            title
+            description
+            startDate {
+                day
+                month
+                year
+            }
+            endDate {
+                day
+                month
+                year
+            }
+            category {
+                categoryName
+            }
+            user {
+                _id
+                name
+            }
+        }
+    }
+`;

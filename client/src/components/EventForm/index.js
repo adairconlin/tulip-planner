@@ -22,7 +22,6 @@ const EventForm = ({ currentDate, onClose }) => {
     }
 
     const createAnEvent = async (e) => {
-        console.log(eventForm);
         e.preventDefault();
         try {
             const { data } = await addEvent({
