@@ -25,9 +25,14 @@ const DayLayout = ({ day, month, year, i }) => {
     }
 
     const [eventState, setEventState] = useState(false);
-    const toggleEventDetails = e => {
-        console.log(e.target);
-        //setEventState(!eventState);
+    const [currentEvent, setCurrentEvent] = useState(null);
+    const toggleEventDetails = id => {
+        if(eventState) {
+            setCurrentEvent(null);
+        } else if(!eventState) {
+            setCurrentEvent(id);
+        }
+        setEventState(!eventState);
     }
 
     const changeBtnDisplay = e => {
@@ -69,6 +74,7 @@ const DayLayout = ({ day, month, year, i }) => {
     return (
         <>
             {formState && <EventForm currentDate={dateInfo} onClose={toggleEventForm} />}
+            {eventState && <EventDetails eventId={currentEvent} onClose={toggleEventDetails} />}
             <article className="day" onMouseEnter={changeBtnDisplay} onMouseLeave={changeBtnDisplay}>
                 <div className="font date" key={i} >
                     <button className="addEventBtn"
@@ -81,8 +87,7 @@ const DayLayout = ({ day, month, year, i }) => {
                     {todaysEvents?.length ?
                             todaysEvents?.map(event => {
                                 return <a key={event?._id}
-                                            href={`/myplanner/event/${event._id}`}
-                                            onClick={toggleEventDetails}
+                                            onClick={() => toggleEventDetails(event._id)}
                                             className="handwriting white subtitle event-default">{event?.title}</a>
                                 
                             })

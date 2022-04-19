@@ -50,6 +50,7 @@ const Signup = () => {
                 <input name="password" type="password" onChange={handleFormChange} />
 
                 <button type="submit">Sign up</button>
+                {error && <p>Login failed.</p>}
             </form>
         </>
     )
