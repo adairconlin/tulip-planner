@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_EVENT, QUERY_MY_CATEGORIES } from "../../utils/queries";
+import { QUERY_EVENT} from "../../utils/queries";
 import { EDIT_EVENT } from "../../utils/mutations";
+import CategoryMenu from "../CategoryMenu";
 const { DateTime } = require("luxon");
 
 const EventDetails = ({ eventId, onClose, eventDate }) => {
@@ -12,10 +13,7 @@ const EventDetails = ({ eventId, onClose, eventDate }) => {
         variables: { _id: eventId }
     });
     const currentEvent = data?.event;
-
-    // Query for your categories
-    const { loading:loadingCat, data:catData } = useQuery(QUERY_MY_CATEGORIES);
-    const categories = catData?.myCategories || [];
+    console.log(currentEvent);
 
     const [eventDetails, setEventDetails] = useState({
         eventId: eventId,
@@ -32,9 +30,17 @@ const EventDetails = ({ eventId, onClose, eventDate }) => {
         });
     }
 
+    const updateCategoryState = e => {
+        setEventDetails({
+            ...eventDetails,
+            category: e
+        });
+    }
+
     const [editEvent, { error }] = useMutation(EDIT_EVENT);
     const updateEvent = async (e) => {
         e.preventDefault();
+        
         try {
             const { data } = await editEvent({
                 variables: { ...eventDetails }
@@ -67,7 +73,7 @@ const EventDetails = ({ eventId, onClose, eventDate }) => {
         warningDiv.appendChild(cancelBtn);
     }
 
-    if(loading || loadingCat) {
+    if(loading) {
         return (
             <div className="eventDetailBackdrop">
                 <div className="eventDetailContainer">
@@ -85,15 +91,7 @@ const EventDetails = ({ eventId, onClose, eventDate }) => {
                 <p>{todaysDate}</p>
                 <textarea onChange={handleChange} defaultValue={currentEvent?.title} name="title" />
                 <textarea onChange={handleChange} defaultValue={currentEvent?.description} name="description" />
-                <div className="dropdown">
-                    { currentEvent?.category ? 
-                    <button className="dropBtn">{currentEvent?.category}</button> :
-                    <button className="dropBtn">+ Add A Category</button> }
-                    <div className="dropdown-content">
-                            
-                            <button className="subtitle">+ Add New Category</button>
-                    </div>
-                </div>
+                <CategoryMenu updateCategoryState={updateCategoryState} defaultCategory={currentEvent?.category?.categoryName} />
                 
                 <button onClick={promptSave}>Save Changes</button>
                 {error && <p>There was an error with your request.</p>}

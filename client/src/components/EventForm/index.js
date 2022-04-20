@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_EVENT } from "../../utils/mutations";
-import CategoryForm from "../CategoryForm";
+import CategoryMenu from "../CategoryMenu";
 
 const EventForm = ({ currentDate, onClose }) => {
     const [eventForm, setEventForm] = useState(
@@ -12,7 +12,6 @@ const EventForm = ({ currentDate, onClose }) => {
             endDate: "",
             category: ""
         })
-    const [addEvent, { error }] = useMutation(ADD_EVENT);
 
     const handleFormChange = e => {
         const { name, value } = e.target;
@@ -22,8 +21,17 @@ const EventForm = ({ currentDate, onClose }) => {
         });
     }
 
+    const updateCategoryState = e => {
+        setEventForm({
+            ...eventForm,
+            category: e
+        });
+    }
+
+    const [addEvent, { error }] = useMutation(ADD_EVENT);
     const createAnEvent = async (e) => {
         e.preventDefault();
+
         try {
             const { data } = await addEvent({
                 variables: { ...eventForm }
@@ -47,26 +55,7 @@ const EventForm = ({ currentDate, onClose }) => {
 
                     <label htmlFor="description">Description:</label>
                     <input name="description" onChange={handleFormChange} />
-
-                    {/* <div className="dropdown">
-                        <a>Category:</a>
-                        <div className="dropdown-content">
-                            {categories.length && 
-                                categories?.map(cat => {
-                                    return <p key={cat?._id}>{cat?.categoryName}</p>
-                                })
-                            }
-
-                            { categoryInput  ?
-                                
-                                    <button onClick={showCategoryForm} 
-                                        className="subtitle">+ Add New Category</button>
-                                
-                                :
-                                <CategoryForm />
-                            }
-                        </div>
-                    </div> */}
+                    <CategoryMenu updateCategoryState={updateCategoryState} />
 
                     <button type="submit">Add Event</button>
                 </form>
