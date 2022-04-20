@@ -57,7 +57,7 @@ const resolvers = {
             }
             throw new AuthenticationError("Not logged in.");
         },
-        myCategories: async(parent, context) => {
+        myCategories: async(parent, args, context) => {
             if(context.user) {
                 const categories = await Category.find({ user: context.user._id })
                 .populate("user");
@@ -105,7 +105,7 @@ const resolvers = {
         addEvent: async (parent, args, context) => {
             // checks if the category selected exists and then assigns
             // category's id to args.category for Event.create to use
-            if(args.category.length) {
+            if(args.category?.length) {
                 const checkForCategory = await Category.findOne({ category: args.category });
                 if(!checkForCategory) {
                     throw new AuthenticationError("Category does not exist");
@@ -191,7 +191,7 @@ const resolvers = {
         },
         addCategory: async(parent, args, context) => {
             if(context.user) {
-                const category = await  Category.create({ ...args, user: context.user._id});
+                const category = await Category.create({ ...args, user: context.user._id});
 
                 await User.findByIdAndUpdate(
                     { _id: context.user._id },
@@ -210,6 +210,13 @@ const resolvers = {
         },
         editEvent: async (parent, args, context) => {
             if(context.user) {
+                if(args.category?.length) {
+                    console.log(args.category);
+                    await Category.find({ categoryName: args.category })
+                        .then(data => {
+                            args.category = data[0]._id
+                        });
+                }
                 return await Event.findByIdAndUpdate( { _id: args.eventId }, args, { new: true })
             }
             throw new AuthenticationError("You need to be logged in!");

@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_EVENT } from "../../utils/queries";
+import { QUERY_EVENT} from "../../utils/queries";
 import { EDIT_EVENT } from "../../utils/mutations";
+import CategoryMenu from "../CategoryMenu";
 const { DateTime } = require("luxon");
 
 const EventDetails = ({ eventId, onClose, eventDate }) => {
     const todaysDate = DateTime.local(parseInt(eventDate.year), parseInt(eventDate.month), parseInt(eventDate.day)).toLocaleString(DateTime.DATE_HUGE);
+
+    // Query for selected event
     const { loading, data } = useQuery(QUERY_EVENT, {
         variables: { _id: eventId }
     });
-
     const currentEvent = data?.event;
+    console.log(currentEvent);
 
     const [eventDetails, setEventDetails] = useState({
         eventId: eventId,
@@ -25,6 +28,31 @@ const EventDetails = ({ eventId, onClose, eventDate }) => {
             ...eventDetails,
             [name]: value
         });
+    }
+
+    const updateCategoryState = e => {
+        setEventDetails({
+            ...eventDetails,
+            category: e
+        });
+    }
+
+    const [editEvent, { error }] = useMutation(EDIT_EVENT);
+    const updateEvent = async (e) => {
+        e.preventDefault();
+        
+        try {
+            const { data } = await editEvent({
+                variables: { ...eventDetails }
+            });
+        } catch(e) {
+            console.log(e);
+        }
+    };
+
+    const cancelSave = () => {
+        const container = document.querySelector(".eventDetailContainer");
+        container.removeChild(container.lastChild);
     }
 
     const promptSave = e => {
@@ -45,23 +73,6 @@ const EventDetails = ({ eventId, onClose, eventDate }) => {
         warningDiv.appendChild(cancelBtn);
     }
 
-    const cancelSave = () => {
-        const container = document.querySelector(".eventDetailContainer");
-        container.removeChild(container.lastChild);
-    }
-
-    const [editEvent, { error }] = useMutation(EDIT_EVENT);
-    const updateEvent = async (e) => {
-        e.preventDefault();
-        try {
-            const { data } = await editEvent({
-                variables: { ...eventDetails }
-            });
-        } catch(e) {
-            console.log(e);
-        }
-    };
-
     if(loading) {
         return (
             <div className="eventDetailBackdrop">
@@ -75,19 +86,16 @@ const EventDetails = ({ eventId, onClose, eventDate }) => {
 
     return (
         <div className="eventDetailBackdrop">
-           <div className="eventDetailContainer">
-               <button onClick={onClose}>X</button>
-               <p>{todaysDate}</p>
-               <textarea onChange={handleChange} defaultValue={currentEvent?.title} name="title" />
-               <textarea onChange={handleChange} defaultValue={currentEvent?.description} name="description" />
-               {currentEvent?.category ?
-                    <textarea onChange={handleChange} defaultValue={currentEvent?.category} name="category" />
-                :
-                    <button>Add Category</button>
-               }
-               {error && <p>There was an error with your request.</p>}
-               <button onClick={promptSave}>Save Changes</button>
-           </div>
+            <div className="eventDetailContainer">
+                <button onClick={onClose}>X</button>
+                <p>{todaysDate}</p>
+                <textarea onChange={handleChange} defaultValue={currentEvent?.title} name="title" />
+                <textarea onChange={handleChange} defaultValue={currentEvent?.description} name="description" />
+                <CategoryMenu updateCategoryState={updateCategoryState} defaultCategory={currentEvent?.category?.categoryName} />
+                
+                <button onClick={promptSave}>Save Changes</button>
+                {error && <p>There was an error with your request.</p>}
+            </div>
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_EVENT } from "../../utils/mutations";
+import CategoryMenu from "../CategoryMenu";
 
 const EventForm = ({ currentDate, onClose }) => {
     const [eventForm, setEventForm] = useState(
@@ -11,7 +12,6 @@ const EventForm = ({ currentDate, onClose }) => {
             endDate: "",
             category: ""
         })
-    const [addEvent, { error }] = useMutation(ADD_EVENT);
 
     const handleFormChange = e => {
         const { name, value } = e.target;
@@ -21,8 +21,17 @@ const EventForm = ({ currentDate, onClose }) => {
         });
     }
 
+    const updateCategoryState = e => {
+        setEventForm({
+            ...eventForm,
+            category: e
+        });
+    }
+
+    const [addEvent, { error }] = useMutation(ADD_EVENT);
     const createAnEvent = async (e) => {
         e.preventDefault();
+
         try {
             const { data } = await addEvent({
                 variables: { ...eventForm }
@@ -30,7 +39,6 @@ const EventForm = ({ currentDate, onClose }) => {
             window.location.assign("/myplanner");
         } catch(e) {
             console.log(e);
-            console.log(error);
         }
     };
 
@@ -38,6 +46,7 @@ const EventForm = ({ currentDate, onClose }) => {
         <div className="eventFormBackdrop">
             <div className="eventFormContainer">
                 <button onClick={onClose}>X</button>
+
                 <form onSubmit={createAnEvent}>
                     <h2>Add an event</h2>
 
@@ -46,9 +55,7 @@ const EventForm = ({ currentDate, onClose }) => {
 
                     <label htmlFor="description">Description:</label>
                     <input name="description" onChange={handleFormChange} />
-
-                    <label htmlFor="category">Category:</label>
-                    <input name="category" onChange={handleFormChange} />
+                    <CategoryMenu updateCategoryState={updateCategoryState} />
 
                     <button type="submit">Add Event</button>
                 </form>

@@ -78,3 +78,13 @@ export const EDIT_EVENT = gql`
         }
     }
 `;
+
+export const ADD_CATEGORY = gql`
+    mutation addCategory($categoryName: String!, $color: String!) {
+        addCategory(categoryName: $categoryName, color: $color) {
+            _id
+            categoryName
+            color
+        }
+    }
+`;

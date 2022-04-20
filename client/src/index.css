@@ -244,6 +244,18 @@ footer p {
     overflow-y: hidden;
 }
 
+.addEventBtn {
+    visibility: hidden;
+}
+
+.day:hover {
+    overflow-y: auto;
+}
+
+.day:hover .addEventBtn {
+    visibility: visible;
+}
+
 .date {
     display: flex;
     flex-direction: row;
@@ -253,10 +265,6 @@ footer p {
 .date span {
     margin-right: 0;
     margin-left: auto;
-}
-
-.addEventBtn {
-    visibility: hidden;
 }
 
 .eventFormBackdrop, .eventDetailBackdrop {
@@ -291,6 +299,29 @@ footer p {
 
 .event-default {
     background-color: gray;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.dropdown-content p, .dropdown-content button {
+    display: block;
+}
+
+.dropdown-content input {
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
     /*          */
 
