@@ -57,7 +57,7 @@ const typeDefs = gql`
         addCategory(categoryName: String!, color: String!): Category
 
         editUser(name: String, email: String, password: String): User
-        editEvent(eventId: ID!, title: String, description: String, startDate: ID!, endDate: ID!, category: String): Event
+        editEvent(eventId: ID!, title: String, description: String, category: String): Event
         editCategory(categoryId: ID!, categoryName: String, color: String): Category
 
         deleteUser: User

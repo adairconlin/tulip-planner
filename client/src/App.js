@@ -6,7 +6,6 @@ import Auth from "../../client/src/utils/auth";
 
 import Header from "./components/Header";
 import Menu from "./components/Menu";
-import EventDetails from "./components/EventDetails";
 import Footer from "./components/Footer";
 
 import MyPlanner from "./pages/MyPlanner";
@@ -60,12 +59,6 @@ function App() {
                   <MyPlanner />
                 </PrivateRoute>
                 }
-              />
-              <Route path="/myplanner/event/:id" element={ 
-                <PrivateRoute>
-                  <EventDetails />
-                </PrivateRoute>
-                } 
               />
               <Route path="/signup" element={ <Signup />} />
               <Route path="/login" element={ <Login />} />
