@@ -57,7 +57,7 @@ const resolvers = {
             }
             throw new AuthenticationError("Not logged in.");
         },
-        myCategories: async(parent, context) => {
+        myCategories: async(parent, args, context) => {
             if(context.user) {
                 const categories = await Category.find({ user: context.user._id })
                 .populate("user");

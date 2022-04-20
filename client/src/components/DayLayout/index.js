@@ -12,7 +12,7 @@ const DayLayout = ({ day, month, year, i }) => {
         month: month.toString(),
         year: year.toString()
     };
-
+    // Query for each day's info in order to display events
     const { loading, data } = useQuery(QUERY_TODAY, {
         variables: { day: dateInfo.day, month: dateInfo.month, year: dateInfo.year }
     });    
@@ -38,17 +38,6 @@ const DayLayout = ({ day, month, year, i }) => {
 
     const changeBtnDisplay = e => {
         setBtnDisplay(!btnDisplay);
-        let btn = e.target.querySelector("button");
-        
-        if(btn?.style) {
-            if(btnDisplay) {
-                btn.style.visibility = "visible";
-                e.target.style = "overflow-y: auto";
-            } else if(!btnDisplay) {
-                btn.style.visibility = "hidden";
-                e.target.style = "overflow-y: hidden";
-            }
-        }
     }
 
     const changeBtnText = e => {
@@ -77,7 +66,8 @@ const DayLayout = ({ day, month, year, i }) => {
             {formState && 
                 <EventForm currentDate={dateInfo} onClose={toggleEventForm} />}
             {eventState && 
-                <EventDetails eventId={currentEvent} onClose={toggleEventDetails} eventDate={dateInfo} />}
+                <EventDetails eventId={currentEvent} onClose={toggleEventDetails} eventDate={dateInfo} /*myCategories={categories}*/ />}
+
             <article className="day" onMouseEnter={changeBtnDisplay} onMouseLeave={changeBtnDisplay}>
                 <div className="font date" key={i} >
                     <button className="addEventBtn"
@@ -86,6 +76,7 @@ const DayLayout = ({ day, month, year, i }) => {
                         onClick={toggleEventForm}>+</button>
                     <span>{day}</span>
                 </div>
+
                 <div className="eventList">
                     {todaysEvents?.length ?
                             todaysEvents?.map(event => {

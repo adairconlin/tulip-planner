@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_EVENT } from "../../utils/mutations";
+import CategoryForm from "../CategoryForm";
 
 const EventForm = ({ currentDate, onClose }) => {
     const [eventForm, setEventForm] = useState(
@@ -30,7 +31,6 @@ const EventForm = ({ currentDate, onClose }) => {
             window.location.assign("/myplanner");
         } catch(e) {
             console.log(e);
-            console.log(error);
         }
     };
 
@@ -38,6 +38,7 @@ const EventForm = ({ currentDate, onClose }) => {
         <div className="eventFormBackdrop">
             <div className="eventFormContainer">
                 <button onClick={onClose}>X</button>
+
                 <form onSubmit={createAnEvent}>
                     <h2>Add an event</h2>
 
@@ -47,8 +48,25 @@ const EventForm = ({ currentDate, onClose }) => {
                     <label htmlFor="description">Description:</label>
                     <input name="description" onChange={handleFormChange} />
 
-                    <label htmlFor="category">Category:</label>
-                    <input name="category" onChange={handleFormChange} />
+                    {/* <div className="dropdown">
+                        <a>Category:</a>
+                        <div className="dropdown-content">
+                            {categories.length && 
+                                categories?.map(cat => {
+                                    return <p key={cat?._id}>{cat?.categoryName}</p>
+                                })
+                            }
+
+                            { categoryInput  ?
+                                
+                                    <button onClick={showCategoryForm} 
+                                        className="subtitle">+ Add New Category</button>
+                                
+                                :
+                                <CategoryForm />
+                            }
+                        </div>
+                    </div> */}
 
                     <button type="submit">Add Event</button>
                 </form>

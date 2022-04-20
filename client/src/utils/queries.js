@@ -153,3 +153,13 @@ export const QUERY_TODAY = gql`
         }
     }
 `;
+
+export const QUERY_MY_CATEGORIES = gql`
+    query myCategories {
+        myCategories {
+            _id
+            categoryName
+            color
+        }
+    }
+`;
