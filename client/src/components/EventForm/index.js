@@ -58,6 +58,7 @@ const EventForm = ({ currentDate, onClose }) => {
                     <CategoryMenu updateCategoryState={updateCategoryState} />
 
                     <button type="submit">Add Event</button>
+                    {error && <p>There was an error with creating this event.</p>}
                 </form>
             </div>
         </div>

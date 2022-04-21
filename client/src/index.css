@@ -105,19 +105,27 @@ header {
     top: 0;
 }
 
-.menu-overlay button {
-    margin-top: 0px;
+.menu-overlay svg {
+    margin-top: 20px;
     margin-bottom: auto;
     margin-left: 30px;
 }
 
 .menu-open {
     height: 100vh;
-    width: 20vw;
-    background-color: white;
+    width: 100vw;
+    background-color: rgba(217, 209, 207, 0.65);
 }
 
-.menu-open div {
+.menu-white {
+    height: 100%;
+    width: 20%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.menu-white div {
+    padding-top: 30px;
     padding-left: 30px;
     display: flex;
     flex-direction: column;
@@ -136,7 +144,7 @@ header {
     width: 45%;
 }
 
-svg:hover line {
+.sun:hover line {
     stroke-dasharray: 100;
     stroke-dashoffset: 1000;
     animation: zoom 10s linear forwards;
@@ -176,6 +184,14 @@ svg:hover line {
 
 .login-section div button {
     font-size: 2vw;
+    transition: .3s ease;
+}
+
+.login-section div button:hover {
+    color: white;
+    background-color: var(--main-red);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+
 }
 
 .btn-select {
