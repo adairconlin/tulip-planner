@@ -1,4 +1,5 @@
 import React from "react";
+import Flowers from "../components/Flowers";
 
 const Homepage = () => {
 
@@ -19,7 +20,7 @@ const Homepage = () => {
                     </g>
                 </svg>
                 <hr />
-                    <h1 className="font main-red">Start your day right with every sunrise</h1>
+                    <h1 className="font main-red">Start your day with every sunrise</h1>
                 <hr />
                 <svg className="sun" xmlns="http://www.w3.org/2000/svg" width="508.715" height="191.735" viewBox="0 0 508.715 191.735">
                     <g id="Group_25" data-name="Group 25" transform="translate(1212.658 366.613) rotate(180)">
@@ -37,13 +38,14 @@ const Homepage = () => {
             </section>
 
             <section className="mid main">
-                <p className="handwriting white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus et tellus facilisis, auctor purus vitae, sollicitudin lectus. Vestibulum gravida euismod elit, a semper justo.</p>
-                <p className="handwriting white">Suspendisse ac imperdiet neque, vitae suscipit purus. Vivamus iaculis dictum dolor, in tincidunt urna molestie et. Curabitur sit amet leo eu quam finibus pellentesque.</p>
+                <Flowers />
+                <div>
+                    <p className="handwriting white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus et tellus facilisis, auctor purus vitae, sollicitudin lectus. Vestibulum gravida euismod elit, a semper justo.</p>
+                    <p className="handwriting white">Suspendisse ac imperdiet neque, vitae suscipit purus. Vivamus iaculis dictum dolor, in tincidunt urna molestie et. Curabitur sit amet leo eu quam finibus pellentesque.</p>
+                </div>
             </section>
 
-            <section className="preview">
-                <p className="handwriting main-red">Preview</p>
-            </section>
+            <section className="preview"></section>
 
             <section className="login-section main">
                 <hr />

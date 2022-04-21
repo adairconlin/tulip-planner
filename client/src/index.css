@@ -159,7 +159,31 @@ header {
 
 .mid {
     background-color: var(--main-red);
-    padding: 100px 200px;
+    padding: 50px 350px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mid div {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+}
+
+.mid div p:first-of-type {
+    margin-bottom: 50px;
+}
+
+.preview {
+    background-image: url("./assets/calendar-preview.JPG");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+    min-height: 60%;
+    width: 100%;
 }
 
 .login-section {
