@@ -176,14 +176,20 @@ header {
     margin-bottom: 50px;
 }
 
+.sectionPreview {
+    z-index: -5;
+    height: 100%;
+}
+
 .preview {
     background-image: url("./assets/calendar-preview.JPG");
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top center;
-    min-height: 60%;
+    min-height: 900px;
     width: 100%;
+    z-index: -5;
 }
 
 .login-section {

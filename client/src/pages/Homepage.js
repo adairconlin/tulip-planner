@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useParallax } from "react-scroll-parallax";
 import Flowers from "../components/Flowers";
 
 const Homepage = () => {
+    const target = useRef(null);
+    const mid = useParallax({
+        speed: -10,
+        targetElement: target.current,
+      });
 
     return (
         <>
@@ -45,7 +51,9 @@ const Homepage = () => {
                 </div>
             </section>
 
-            <section className="preview"></section>
+            <section ref={target} className="sectionPreview">
+                <div className="preview" ref={mid.ref} />
+            </section>
 
             <section className="login-section main">
                 <hr />
