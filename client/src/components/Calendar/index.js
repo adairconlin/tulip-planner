@@ -40,9 +40,23 @@ const Calendar = () => {
     return (
         <section className="calendar">
             <div className="calendar-top">
-                <button className="font subtitle" onClick={() => changeActiveMonth("backward")}> &#60; </button>
-                <p className="font">{DateTime.local(currentYear, activeMonth, 1).monthLong} {DateTime.local(activeYear, activeMonth, 1).year}</p>
-                <button className="font subtitle" onClick={() => changeActiveMonth("forward")}> &#62; </button>
+                <button onClick={() => changeActiveMonth("backward")}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12.861" height="16.59" viewBox="0 0 12.861 16.59">
+                        <g id="Group_5" data-name="Group 5" transform="translate(10.764 14.492) rotate(180)">
+                            <line id="Line_24" data-name="Line 24" x2="8.667" y2="6.386" fill="none" stroke="#898e77" stroke-linecap="round" stroke-width="3"/>
+                            <line id="Line_25" data-name="Line 25" y1="6.009" x2="8.171" transform="translate(0.496 6.386)" fill="none" stroke="#898e77" stroke-linecap="round" stroke-width="3"/>
+                        </g>
+                    </svg>
+                </button>
+                <p className="font main-red">{DateTime.local(currentYear, activeMonth, 1).monthLong} {DateTime.local(activeYear, activeMonth, 1).year}</p>
+                <button onClick={() => changeActiveMonth("forward")}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12.967" height="16.741" viewBox="0 0 12.967 16.741">
+                        <g id="Group_5" data-name="Group 5" transform="translate(2.097 2.097)">
+                            <line id="Line_24" data-name="Line 24" x2="8.772" y2="6.464" fill="none" stroke="#898e77" stroke-linecap="round" stroke-width="3"/>
+                            <line id="Line_25" data-name="Line 25" y1="6.083" x2="8.271" transform="translate(0.502 6.464)" fill="none" stroke="#898e77" stroke-linecap="round" stroke-width="3"/>
+                        </g>
+                    </svg>
+                </button>
             </div>
             <div className="days">{days}</div>
         </section>
