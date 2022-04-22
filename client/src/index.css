@@ -24,6 +24,12 @@ body {
     --med-red: #D1B2AD;
     --light-red: #D9D1CF;
     --sky-blue: #BBD2D0;
+
+    --purple-sunset: #A7A4BB;
+    --orange-sunset: #EFBAA2;
+    --yellow-sunset: #F2EFD2;
+
+    --sunset-overlay: linear-gradient(180deg, var(--purple-sunset), var(--med-red), var(--orange-sunset), var(--yellow-sunset));
 }
 
 .main-red {
@@ -86,22 +92,28 @@ button:hover {
 }
 
 a {
+    color: inherit;
     text-decoration: none;
+}
+
+input:focus {
+    outline: none;
 }
 
 /* Header */
 header {
-    display: fixed;
+    position: fixed;
     top: 0;
     width: 100%;
     text-align: center;
     padding: 15px 0px 10px 0px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+    background-color: white;
 }
 
-    /* Menu */
+/* Menu */
 .menu-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
 }
 
@@ -131,20 +143,21 @@ header {
     flex-direction: column;
 }
 
-    /* Hero */
+/* Hero */
 .hero {
-    margin: 100px auto 100px auto;
+    margin: 160px auto 100px auto;
     text-align: center;
 }
 
 .hero hr {
     background-color: var(--main-red);
-    height: 3px;
+    height: 4px;
     border-width: 0; 
-    width: 45%;
+    width: 50%;
+    margin: 40px auto;
 }
 
-.sun:hover line {
+.sun:hover line, .sun:hover path:last-of-type {
     stroke-dasharray: 100;
     stroke-dashoffset: 1000;
     animation: zoom 10s linear forwards;
@@ -155,7 +168,6 @@ header {
         stroke-dashoffset: 0;
     }
 }
-    /*       */
 
 .mid {
     background-color: var(--main-red);
@@ -212,16 +224,20 @@ header {
     align-items: center;
 }
 
-.login-section div button {
+.login-section div button, .login-section div button a {
     font-size: 2vw;
     transition: .3s ease;
+    color: var(--main-red);
 }
 
 .login-section div button:hover {
     color: white;
     background-color: var(--main-red);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+}
 
+.login-section div button:hover a {
+    color: white;
 }
 
 .btn-select {
@@ -231,7 +247,6 @@ header {
     border-radius: 50px;
     margin-bottom: 50px;
 }
-/*         */
 
 /* Footer */
 footer {
@@ -245,7 +260,54 @@ footer {
 footer p {
     margin: 10px 0px;
 }
-/*        */
+
+/* Login */
+.signon-background {
+    background-image: var(--sunset-overlay);
+    height: 100vh;
+}
+
+.signonContainer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 100px !important;
+    padding: 40px;
+    align-items: center;
+}
+
+.signonContainer form {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 50%;
+}
+
+.signonContainer form h2 {
+    margin-bottom: 100px;
+}
+
+.signonContainer form input {
+    border: 3px solid var(--main-red);
+    border-radius: 5px;
+    margin-bottom: 50px;
+}
+
+.signonContainer form .green-btn {
+    align-self: flex-end;
+    justify-self: flex-end;
+}
+
+.green-btn {
+    color: white;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--main-green);
+    padding: 5px 20px;
+    transition: .3s ease;
+}
+
+.green-btn:hover {
+    background-color: var(--main-red);
+}
 
 /* MyPlanner */
 .today {
@@ -253,7 +315,7 @@ footer p {
     margin-left: 50px;
 }
 
-    /* Calendar */
+/* Calendar */
 .calendar {
     margin: 10px 75px;
     padding: 30px;
@@ -314,7 +376,8 @@ footer p {
 }
 
 .eventFormBackdrop, .eventDetailBackdrop {
-    background:rgba(0, 0, 0, 0.65);
+    background-image: var(--sunset-overlay);
+    opacity: 50%;
     bottom: 0;
     left: 0;
     overflow: auto;
@@ -369,6 +432,3 @@ footer p {
 .dropdown:hover .dropdown-content {
     display: block;
 }
-    /*          */
-
-/*                */
