@@ -37,10 +37,10 @@ const Homepage = () => {
                 <hr />
                     <h1 className="font white">Begin Planning</h1>
                     <div>
-                        <button className="btn-select main-red handwriting">
+                        <button className="btn-select font">
                             <Link to="/signup">Sign Up</Link>
                         </button>
-                        <button className="btn-select handwriting">
+                        <button className="btn-select font">
                             <Link to="/signup">Login</Link>
                         </button>
                     </div>

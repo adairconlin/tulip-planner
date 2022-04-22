@@ -171,17 +171,18 @@ header {
 
 .mid {
     background-color: var(--main-red);
-    padding: 50px 350px;
+    padding: 80px 350px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
 }
 
 .mid div {
     display: flex;
     flex-direction: column;
     width: 800px;
+    margin-left: 4vw;
 }
 
 .mid div p:first-of-type {
@@ -225,7 +226,7 @@ header {
 }
 
 .login-section div button, .login-section div button a {
-    font-size: 2vw;
+    font-size: 1.5vw;
     transition: .3s ease;
     color: var(--main-red);
 }
@@ -241,8 +242,8 @@ header {
 }
 
 .btn-select {
-    width: 20%;
-    padding: 8px 60px;
+    width: 15%;
+    padding: 15px 45px;
     border: none;
     border-radius: 50px;
     margin-bottom: 50px;

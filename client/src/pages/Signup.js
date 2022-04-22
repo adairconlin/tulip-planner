@@ -54,7 +54,7 @@ const Signup = () => {
                         <label className="font main-red para" htmlFor="password">Password:</label>
                         <input className="handwriting main-green para" name="password" type="password" onChange={handleFormChange} />
 
-                        <button className="subtitle font green-btn" type="submit">Log In</button>
+                        <button className="subtitle font green-btn" type="submit">Sign Up</button>
                         {error && <p>Sign up failed.</p>}
                     </form>
                 </div>
