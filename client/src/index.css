@@ -13,9 +13,13 @@ body {
     justify-content: space-between;
 }
 
-.main, footer {
+.main {
     padding: 0px 30px;
     margin-top: 140px;
+}
+
+footer {
+    padding: 0px 30px;
 }
 
 /* My colors */
@@ -351,11 +355,11 @@ footer p {
     justify-content: center;
     margin: 0px auto;
 }
-    /* Day Layout */
+/* Day Layout */
 .day {
     width: 11.7vw;
     height: 6vw;
-    border: 1px solid black;
+    border: 2px solid var(--main-red);
     padding: 5px;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -363,6 +367,9 @@ footer p {
 
 .addEventBtn {
     visibility: hidden;
+    border: none;
+    background-color: none;
+    border-radius: 100px;
 }
 
 .day:hover {
@@ -371,6 +378,7 @@ footer p {
 
 .day:hover .addEventBtn {
     visibility: visible;
+    cursor: pointer;
 }
 
 .date {
@@ -382,6 +390,7 @@ footer p {
 .date span {
     margin-right: 0;
     margin-left: auto;
+    color: var(--main-red);
 }
 
 .eventFormBackdrop, .eventDetailBackdrop {
@@ -397,11 +406,37 @@ footer p {
 }
 
 .eventFormContainer, .eventDetailContainer {
+    display: flex;
+    flex-direction: column;
     background-color: white;
     border-radius: 25px;
+    padding: 30px;
     width: 75%;
-    height: 75%;
-    margin: 75px auto;
+    margin: 75px auto 100px auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+    z-index: 2;
+}
+
+.eventFormContainer div:first-of-type {
+    display: flex;
+    padding: 30px 50px;
+}
+
+.eventFlower {
+    width: 40%;
+}
+
+.eventFormContainer form {
+    display: flex;
+    flex-direction: column;
+}
+
+.eventFormContainer input, .eventDetailContainer input {
+    border: 3px solid var(--main-red);
+    border-radius: 7px;
 }
 
 .eventList {

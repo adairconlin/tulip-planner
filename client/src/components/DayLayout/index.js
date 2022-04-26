@@ -3,10 +3,12 @@ import { useQuery } from "@apollo/client";
 import { QUERY_TODAY } from "../../utils/queries";
 import EventForm from "../EventForm";
 import EventDetails from "../EventDetails";
+import EventBtn from "../../assets/EventBtn";
 
 const DayLayout = ({ day, month, year, i }) => {
     const [btnDisplay, setBtnDisplay] = useState(true);
-    const [btnText, setBtnText] = useState(true);
+    const [btnContent, setBtnContent] = useState(true);
+    const [propValue, setPropValue] = useState("defaultBtn");
     const dateInfo = {
         day: day.toString(),
         month: month.toString(),
@@ -36,17 +38,17 @@ const DayLayout = ({ day, month, year, i }) => {
         }
     }
 
-    const changeBtnDisplay = e => {
+    const changeBtnDisplay = () => {
         setBtnDisplay(!btnDisplay);
     }
 
-    const changeBtnText = e => {
-        setBtnText(!btnText);
+    const changeBtnContent = () => {
+        setBtnContent(!btnContent);
 
-        if(btnText) {
-            e.target.textContent = "+ Add Event"
-        } else if(!btnText) {
-            e.target.textContent = "+"
+        if(btnContent) {
+            setPropValue("hoverBtn");
+        } else if(!btnContent) {
+            setPropValue("defaultBtn");
         }
     }
 
@@ -66,14 +68,16 @@ const DayLayout = ({ day, month, year, i }) => {
             {formState && 
                 <EventForm currentDate={dateInfo} onClose={toggleEventForm} />}
             {eventState && 
-                <EventDetails eventId={currentEvent} onClose={toggleEventDetails} eventDate={dateInfo} /*myCategories={categories}*/ />}
+                <EventDetails eventId={currentEvent} onClose={toggleEventDetails} eventDate={dateInfo} />}
 
             <article className="day" onMouseEnter={changeBtnDisplay} onMouseLeave={changeBtnDisplay}>
                 <div className="font date" key={i} >
-                    <button className="addEventBtn"
-                        onMouseEnter={changeBtnText}
-                        onMouseLeave={changeBtnText}
-                        onClick={toggleEventForm}>+</button>
+                    <div className="addEventBtn"
+                        onMouseEnter={changeBtnContent}
+                        onMouseLeave={changeBtnContent}
+                        onClick={toggleEventForm}>
+                            <EventBtn status={propValue} />
+                    </div>
                     <span>{day}</span>
                 </div>
 
