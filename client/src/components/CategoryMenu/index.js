@@ -3,20 +3,14 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ADD_CATEGORY } from "../../utils/mutations";
 import { QUERY_MY_CATEGORIES } from "../../utils/queries";
 
-const CategoryForm = ({ updateCategoryState, defaultCategory }) => {
+const CategoryForm = ({ updateCategoryState, defaultCategory, openForm, openCategoryForm }) => {
     if(!defaultCategory) {
-        defaultCategory = "Choose Category";
+        defaultCategory = "Choose a category...";
     }
 
     // Query for your categories
     const { loading, data } = useQuery(QUERY_MY_CATEGORIES);
     const categories = data?.myCategories || [];
-
-    const [categoryInput, setCategoryInput] = useState(true);
-    const showCategoryForm = () => {
-        setCategoryInput(!categoryInput);
-        document.querySelector(".dropdown-content").style.display = "block";
-    }
 
     const chooseCategory = e => {
         let categoryTitle = document.querySelector('[name="category"]');
@@ -44,7 +38,7 @@ const CategoryForm = ({ updateCategoryState, defaultCategory }) => {
         e.preventDefault();
         let categoryTitle = document.querySelector('[name="category"]');
         categoryTitle.innerHTML = catForm.categoryName;
-        setCategoryInput(true);
+        openCategoryForm();
 
         try {
             const { data } = await addCategory({
@@ -64,36 +58,36 @@ const CategoryForm = ({ updateCategoryState, defaultCategory }) => {
     }
 
     return (
-            <>
-                <a>Category:</a>
-                <div className="dropdown">
-                    <a name="category">{defaultCategory}</a>
-                    <div className="dropdown-content">
-                        {categories?.length ? 
-                            categories?.map(cat => {
-                                return <p key={cat?._id} onClick={chooseCategory}>{cat?.categoryName}</p>
-                            }) : ""
-                        }
-
-                        { categoryInput  ?
-                            <button onClick={showCategoryForm} 
-                                className="subtitle">+ Add New Category</button> :
-                            <> 
-                                <label htmlFor="categoryName">Category Name:</label>
-                                <input name="categoryName" onChange={handleFormChange} />
-                                
-                                <label htmlFor="color">Color:</label>
-                                <input name="color" onChange={handleFormChange} />
-                                
-                                <button onClick={createCategory}>save and select category</button>
-                            </>
-                        }
-                    </div>
-                </div>
-
-
-
-            </>
+        <> { !openForm ?
+                <>
+                    <a className="main-red font para">Category:</a>
+                    <section className="dropdown">
+                        <section>
+                            <a className="main-red handwriting para" name="category">{defaultCategory}</a>
+                        </section>
+                        <section className="dropdown-content">
+                            {categories?.length ? 
+                                categories?.map(cat => {
+                                    return <p key={cat?._id} onClick={chooseCategory}>{cat?.categoryName}</p>
+                                }) : ""
+                            }
+                            
+                            <button onClick={openCategoryForm} className="main-red font subtitle cat-btn">+ Add New Category</button>
+                        </section>
+                    </section>
+                </> 
+            :
+                <>
+                    <label className="main-red font para" htmlFor="categoryName">Category Name:</label>
+                    <input className="main-green handwriting para" name="categoryName" onChange={handleFormChange} />
+                    
+                    <label className="main-red font para" htmlFor="color">Color:</label>
+                    <input name="color" onChange={handleFormChange} />
+                    
+                    <button className="green-btn font subtitle" onClick={createCategory}>save and select</button>
+                </>
+            }
+        </>
     )
 }
 

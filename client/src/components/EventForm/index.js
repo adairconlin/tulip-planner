@@ -11,6 +11,10 @@ const EventForm = ({ currentDate, onClose }) => {
         month: parseInt(currentDate.month),
         year: parseInt(currentDate.year)
     };
+    const [openForm, setOpenForm] = useState(false);
+    const openCategoryForm = () => {
+        setOpenForm(!openForm);
+    }
 
     const [eventForm, setEventForm] = useState(
         {
@@ -69,15 +73,21 @@ const EventForm = ({ currentDate, onClose }) => {
                             {DateTime.local(currentDate.year, currentDate.month, currentDate.day).toLocaleString(DateTime.DATE_HUGE)}
                             </h2>
                         
-                            <label className="main-red font para" htmlFor="title">Title:</label>
-                            <input className="main-green handwriting para" name="title" onChange={handleFormChange} />
+                            { !openForm &&
+                                <>
+                                    <label className="main-red font para" htmlFor="title">Title:</label>
+                                    <input className="main-green handwriting para" name="title" onChange={handleFormChange} />
+                                    
+                                    <label className="main-red font para" htmlFor="description">Description:</label>
+                                    <input className="main-green handwriting para" name="description" onChange={handleFormChange} />
+                                </>
+                            }
                         
-                            <label className="main-red font para" htmlFor="description">Description:</label>
-                            <input className="main-green handwriting para" name="description" onChange={handleFormChange} />
+                            <CategoryMenu updateCategoryState={updateCategoryState} openForm={openForm} openCategoryForm={openCategoryForm} />
                         
-                            <CategoryMenu updateCategoryState={updateCategoryState} />
-                        
-                            <button className="green-btn font subtitle" type="submit">Add Event</button>
+                            { !openForm &&
+                                <button className="green-btn font subtitle" type="submit">Add Event</button>
+                            }
                             {error && <p>There was an error with creating this event.</p>}
                         </form>
                     </div>

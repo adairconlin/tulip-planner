@@ -460,7 +460,15 @@ footer p {
     display: inline-block;
 }
 
+.dropdown section:first-of-type {
+    border: 3px solid var(--main-red);
+    border-radius: 5px;
+    width: 60%
+}
+
 .dropdown-content {
+    border: 3px solid var(--main-red);
+    width: 60%;
     display: none;
     position: absolute;
     z-index: 1;
@@ -476,4 +484,8 @@ footer p {
 
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+.cat-btn {
+    border: none;
 }
