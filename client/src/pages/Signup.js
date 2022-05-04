@@ -39,8 +39,8 @@ const Signup = () => {
 
     return (
         <>
-            <div className="signon-background"> 
-                <div className="eventFormContainer signonContainer">
+            <div className="overlay-background"> 
+                <div className="overlay-container signon-container">
                     <SecondaryFlowers form={"signon"} />
                     <form onSubmit={handelUserSignup} autoComplete="off">
                         <h2 className="main-red font">Welcome.</h2>

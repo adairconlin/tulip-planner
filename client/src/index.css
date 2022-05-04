@@ -120,6 +120,7 @@ header {
 .menu-overlay {
     position: fixed;
     top: 0;
+    z-index: 5;
 }
 
 .menu-overlay svg {
@@ -150,7 +151,7 @@ header {
 
 /* Hero */
 .hero {
-    margin: 160px auto 100px auto;
+    margin: 18vh auto 4vh auto;
     text-align: center;
 }
 
@@ -268,46 +269,60 @@ footer p {
 }
 
 /* Login */
-.signon-background {
+.overlay-container {
+    display: flex;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 var(--main-red);
+    border-radius: 10px;
+    width: 65%;
+    margin: 12vh auto 100px auto;
+    padding: 8vh 0px 10vh 0px;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+    z-index: 2;
+}
+
+.overlay-background {
     background-image: var(--sunset-overlay);
     height: 100vh;
 }
 
-.signonContainer {
+.signon-container {
     display: flex;
     justify-content: space-around;
-    margin-top: 100px !important;
-    padding: 40px;
     align-items: center;
 }
 
-.signonContainer form {
+.signon-container form {
     display: flex;
     flex-direction: column;
-    flex-basis: 50%;
+    flex-basis: 45%;
 }
 
-.signonContainer form h2 {
-    margin-bottom: 100px;
+.signon-container form h2 {
+    margin-bottom: 10vh;
 }
 
-.signonContainer form input {
+.signon-container form input {
     border: 3px solid var(--main-red);
     border-radius: 5px;
-    margin-bottom: 50px;
+    margin-bottom: 4vh;
 }
 
-.signonContainer form .green-btn {
+.signon-container form .green-btn {
     align-self: flex-end;
     justify-self: flex-end;
+    margin-top: 5vh;
 }
 
 .green-btn {
     color: white;
     border: none;
-    border-radius: 15px;
+    border-radius: 20px;
     background-color: var(--main-green);
-    padding: 5px 20px;
+    padding: 7px 18px;
     transition: .3s ease;
 }
 
@@ -407,7 +422,6 @@ footer p {
 
 .eventFormContainer, .eventDetailContainer {
     display: flex;
-    flex-direction: column;
     background-color: white;
     border-radius: 25px;
     padding: 30px;
@@ -427,11 +441,6 @@ footer p {
 
 .eventFlower {
     width: 40%;
-}
-
-.eventFormContainer form {
-    display: flex;
-    flex-direction: column;
 }
 
 .eventFormContainer input, .eventDetailContainer input {

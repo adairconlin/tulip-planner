@@ -37,8 +37,8 @@ const Login = () => {
 
     return (
         <>
-            <div className="signon-background"> 
-                <div className="eventFormContainer signonContainer">
+            <section className="overlay-background"> 
+                <section className="overlay-container signon-container">
                     <SecondaryFlowers form={"signon"} />
                     <form onSubmit={handelUserLogin} autoComplete="off">
                         <h2 className="main-red font">Welcome back!</h2>
@@ -52,8 +52,8 @@ const Login = () => {
                         <button className="subtitle font green-btn" type="submit">Log In</button>
                         {error && <p>Log in failed.</p>}
                     </form>
-                </div>
-            </div>
+                </section>
+            </section>
         </>
     )
 }
