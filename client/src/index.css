@@ -77,7 +77,7 @@ h1 {
     font-size: 64px;
 }
 
-h2 {
+h2, .title {
     font-size: 47px;
     margin: 0px;
 }
@@ -268,7 +268,12 @@ footer p {
     margin: 10px 0px;
 }
 
-/* Login */
+/* Login & Sign up */
+.overlay-background {
+    background-image: var(--sunset-overlay);
+    height: 100vh;
+}
+
 .overlay-container {
     display: flex;
     background-color: white;
@@ -284,37 +289,32 @@ footer p {
     z-index: 2;
 }
 
-.overlay-background {
-    background-image: var(--sunset-overlay);
-    height: 100vh;
+.overlay-container form, .overlay-container article {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 45%;
+}
+
+.overlay-container form input, .overlay-container article textarea {
+    border: 3px solid var(--main-red);
+    border-radius: 5px;
+    margin-bottom: 4vh;
+}
+
+.overlay-container form h2 {
+    margin-bottom: 10vh;
+}
+
+.overlay-container form .green-btn, .overlay-container article .green-btn {
+    align-self: flex-end;
+    justify-self: flex-end;
+    margin-top: 5vh;
 }
 
 .signon-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
-}
-
-.signon-container form {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 45%;
-}
-
-.signon-container form h2 {
-    margin-bottom: 10vh;
-}
-
-.signon-container form input {
-    border: 3px solid var(--main-red);
-    border-radius: 5px;
-    margin-bottom: 4vh;
-}
-
-.signon-container form .green-btn {
-    align-self: flex-end;
-    justify-self: flex-end;
-    margin-top: 5vh;
 }
 
 .green-btn {
@@ -408,7 +408,8 @@ footer p {
     color: var(--main-red);
 }
 
-.eventFormBackdrop, .eventDetailBackdrop {
+/* Event form overlay */
+.event-background {
     background-image: var(--sunset-overlay);
     opacity: 50%;
     bottom: 0;
@@ -420,32 +421,23 @@ footer p {
     z-index: 1;
 }
 
-.eventFormContainer, .eventDetailContainer {
-    display: flex;
-    background-color: white;
-    border-radius: 25px;
-    padding: 30px;
-    width: 75%;
-    margin: 75px auto 100px auto;
-    left: 0;
-    right: 0;
-    top: 0;
-    position: fixed;
-    z-index: 2;
+.event-form {
+    flex-direction: column;
+    padding: 3vh 5vh 5vh 5vh;
 }
 
-.eventFormContainer div:first-of-type {
+.event-form svg {
+    margin-bottom: 5vh;
+    align-self: flex-end;
+}
+
+.event-form div, .event-form article {
     display: flex;
-    padding: 30px 50px;
+    justify-content: space-around;
 }
 
 .eventFlower {
     width: 40%;
-}
-
-.eventFormContainer input, .eventDetailContainer input {
-    border: 3px solid var(--main-red);
-    border-radius: 7px;
 }
 
 .eventList {

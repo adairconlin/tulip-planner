@@ -12,7 +12,7 @@ const EventBtn = ({ status }) => {
                             <g id="Group_9" data-name="Group 9" transform="translate(2009.962 734.962) rotate(180)">
                                 <g id="Group_5" data-name="Group 5" transform="translate(1382.344 202.349)">
                                     <line id="Line_24" data-name="Line 24" y2="11.345" transform="translate(5.672)" fill="none" stroke="#fff" strokeLinecap="round" strokeWidth="3"/>
-                                    <line id="Line_26" data-name="Line 26" y2="11.345" transform="translate(11.345 5.673) rotate(90)" fill="none" stroke="#fff" strokeLinecap="round" stroke-width="3"/>
+                                    <line id="Line_26" data-name="Line 26" y2="11.345" transform="translate(11.345 5.673) rotate(90)" fill="none" stroke="#fff" strokeLinecap="round" strokeWidth="3"/>
                                 </g>
                             </g>
                         </g>

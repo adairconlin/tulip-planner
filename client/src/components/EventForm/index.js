@@ -3,8 +3,15 @@ import { useMutation } from "@apollo/client";
 import { ADD_EVENT } from "../../utils/mutations";
 import CategoryMenu from "../CategoryMenu";
 import EventFlowers from "../../assets/EventFlowers";
+const { DateTime } = require("luxon");
 
 const EventForm = ({ currentDate, onClose }) => {
+    currentDate = {
+        day: parseInt(currentDate.day),
+        month: parseInt(currentDate.month),
+        year: parseInt(currentDate.year)
+    };
+
     const [eventForm, setEventForm] = useState(
         {
             title: "",
@@ -45,22 +52,22 @@ const EventForm = ({ currentDate, onClose }) => {
 
     return (
         <>
-            <div className="eventFormBackdrop">
-            </div>
-                <div className="eventFormContainer">
+            <div className="event-background" />
+                <div className="overlay-container event-form">
                     <svg onClick={onClose} xmlns="http://www.w3.org/2000/svg" width="29.573" height="18.074" viewBox="0 0 29.573 18.074">
                         <g id="Group_26" data-name="Group 26" transform="translate(-25.963 -31.463)">
-                            <line id="Line_1" data-name="Line 1" x2="25.5" y2="14" transform="translate(28 33.5)" fill="none" stroke="#898e77" stroke-linecap="round" stroke-width="3"/>
-                            <line id="Line_3" data-name="Line 3" y1="14" x2="25.5" transform="translate(28 33.5)" fill="none" stroke="#898e77" stroke-linecap="round" stroke-width="3"/>
+                            <line id="Line_1" data-name="Line 1" x2="25.5" y2="14" transform="translate(28 33.5)" fill="none" stroke="#898e77" strokeLinecap="round" strokeWidth="3"/>
+                            <line id="Line_3" data-name="Line 3" y1="14" x2="25.5" transform="translate(28 33.5)" fill="none" stroke="#898e77" strokeLinecap="round" strokeWidth="3"/>
                         </g>
                     </svg>
-                    
                     
                     <div>
                         <EventFlowers />
                         
-                        <form onSubmit={createAnEvent}>
-                            <h2 className="main-red font">Add an event</h2>
+                        <form onSubmit={createAnEvent} autoComplete="off">
+                            <h2 className="main-red font">Add An Event For<br />
+                            {DateTime.local(currentDate.year, currentDate.month, currentDate.day).toLocaleString(DateTime.DATE_HUGE)}
+                            </h2>
                         
                             <label className="main-red font para" htmlFor="title">Title:</label>
                             <input className="main-green handwriting para" name="title" onChange={handleFormChange} />
