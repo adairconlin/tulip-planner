@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ADD_CATEGORY } from "../../utils/mutations";
 import { QUERY_MY_CATEGORIES } from "../../utils/queries";
 
-const CategoryForm = ({ updateCategoryState, defaultCategory, openForm, openCategoryForm }) => {
+const CategoryForm = ({ updateCategoryState, setDefault, defaultCategory, openForm, openCategoryForm }) => {
     if(!defaultCategory) {
         defaultCategory = "Choose a category...";
     }
@@ -32,12 +32,30 @@ const CategoryForm = ({ updateCategoryState, defaultCategory, openForm, openCate
             ...catForm,
             [name]: value
         });
+
+        console.log(catForm);
+    }
+
+    const colorSelect = e => {
+        setCatForm({
+            ...catForm,
+            color: e.target.className
+        });
+
+        if(e.target.children.length < 1) {
+            const xMark = document.createElement("span");
+            xMark.textContent = "X";
+            xMark.className = "handwriting para";
+    
+            e.target.style.border = "3px solid gray";
+    
+            e.target.appendChild(xMark);
+        }
     }
 
     const createCategory = async (e) => {
         e.preventDefault();
-        let categoryTitle = document.querySelector('[name="category"]');
-        categoryTitle.innerHTML = catForm.categoryName;
+        setDefault(catForm.categoryName);
         openCategoryForm();
 
         try {
@@ -48,7 +66,7 @@ const CategoryForm = ({ updateCategoryState, defaultCategory, openForm, openCate
             console.log(e);
         }
 
-        updateCategoryState(categoryTitle.innerHTML);
+        updateCategoryState(catForm.categoryName);
     };
 
     if(loading) {
@@ -82,7 +100,18 @@ const CategoryForm = ({ updateCategoryState, defaultCategory, openForm, openCate
                     <input className="main-green handwriting para" name="categoryName" onChange={handleFormChange} />
                     
                     <label className="main-red font para" htmlFor="color">Color:</label>
-                    <input name="color" onChange={handleFormChange} />
+                    <section className="radio-btns">
+                        <div name="color" className="red" onClick={colorSelect} />
+                        <div name="color" className="orange" onClick={colorSelect} />
+                        <div name="color" className="lt-green" onClick={colorSelect} />
+                        <div name="color" className="green" onClick={colorSelect} />
+                    </section>
+                    <section className="radio-btns">
+                        <div name="color" className="lt-blue" onClick={colorSelect} />
+                        <div name="color" className="blue" onClick={colorSelect} />
+                        <div name="color" className="purple" onClick={colorSelect} />
+                        <div name="color" className="pink" onClick={colorSelect} />
+                    </section>
                     
                     <button className="green-btn font subtitle" onClick={createCategory}>save and select</button>
                 </>

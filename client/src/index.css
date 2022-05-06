@@ -411,7 +411,7 @@ footer p {
 /* Event form overlay */
 .event-background {
     background-image: var(--sunset-overlay);
-    opacity: 50%;
+    opacity: 80%;
     bottom: 0;
     left: 0;
     overflow: auto;
@@ -488,4 +488,61 @@ footer p {
 
 .cat-btn {
     border: none;
+}
+
+.radio-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start !important;
+}
+
+.radio-btns div {
+    height: 40px;
+    width: 40px;
+    border-radius: 100px;
+    border: none;
+    margin: 5px 15px 15px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.radio-btns div:hover {
+    cursor: pointer;
+}
+
+.radio-btns div span {
+    color: gray;
+}
+
+.red, .radio-btns div .red {
+    background-color: #BC938B;
+}
+
+.orange {
+    background-color: #D4BC9F;
+}
+
+.lt-green {
+    background-color: #CAD1AF;
+}
+
+.green {
+    background-color: #898E77;
+}
+
+.lt-blue {
+    background-color: #B0D1CE;
+}
+
+.blue {
+    background-color: #788F8D;
+}
+
+.purple {
+    background-color: #B3A0B9;
+}
+
+.pink {
+    background-color: #DFC3C3;
 }

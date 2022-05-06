@@ -86,7 +86,9 @@ const DayLayout = ({ day, month, year, i }) => {
                             todaysEvents?.map(event => {
                                 return <a key={event?._id}
                                             onClick={() => toggleEventDetails(event._id)}
-                                            className="handwriting white subtitle event-default">{event?.title}</a>
+                                            className={`handwriting white subtitle ${event?.category?.color ? "orange" : "event-default"} `}>
+                                                {event?.title}
+                                            </a>
                                 
                             })
                         : ""

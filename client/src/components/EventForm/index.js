@@ -54,6 +54,11 @@ const EventForm = ({ currentDate, onClose }) => {
         }
     };
 
+    const [defaultCategory, setDefaultCategory] = useState(null);
+    const updateDefaultCategory = (e) => {
+        setDefaultCategory(e);
+    }
+
     return (
         <>
             <div className="event-background" />
@@ -83,7 +88,7 @@ const EventForm = ({ currentDate, onClose }) => {
                                 </>
                             }
                         
-                            <CategoryMenu updateCategoryState={updateCategoryState} openForm={openForm} openCategoryForm={openCategoryForm} />
+                            <CategoryMenu updateCategoryState={updateCategoryState} openForm={openForm} setDefault={updateDefaultCategory} defaultCategory={defaultCategory} openCategoryForm={openCategoryForm} />
                         
                             { !openForm &&
                                 <button className="green-btn font subtitle" type="submit">Add Event</button>

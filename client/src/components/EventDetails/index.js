@@ -49,15 +49,19 @@ const EventDetails = ({ eventId, onClose, eventDate }) => {
         } catch(e) {
             console.log(e);
         }
+
+        const container = document.querySelector(".event-form");
+        container.removeChild(container.lastChild);
+        onClose();
     };
 
     const cancelSave = () => {
-        const container = document.querySelector(".eventDetailContainer");
+        const container = document.querySelector(".event-form");
         container.removeChild(container.lastChild);
     }
 
     const promptSave = e => {
-        const container = document.querySelector(".eventDetailContainer");
+        const container = document.querySelector(".event-form");
         const warningDiv = document.createElement("div");
         const warningMessage = document.createElement("p");
         warningMessage.textContent = "Are you sure you want to save?";
