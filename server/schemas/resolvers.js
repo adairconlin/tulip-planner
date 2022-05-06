@@ -75,7 +75,12 @@ const resolvers = {
                         year: { $in: args.year }
                     }
                 )
-                    .populate("events");
+                    .populate({
+                        path: "events",
+                        populate: {
+                            path: "category"
+                        }
+                    });
                 return today;
             }
             throw new AuthenticationError("Not logged in.");
@@ -106,10 +111,7 @@ const resolvers = {
             // checks if the category selected exists and then assigns
             // category's id to args.category for Event.create to use
             if(args.category?.length) {
-                const checkForCategory = await Category.findOne({ category: args.category });
-                if(!checkForCategory) {
-                    throw new AuthenticationError("Category does not exist");
-                } 
+                const checkForCategory = await Category.findOne({ categoryName: args.category });
                 args.category = checkForCategory._id;
             } else {
                 args.category = null;
@@ -211,7 +213,6 @@ const resolvers = {
         editEvent: async (parent, args, context) => {
             if(context.user) {
                 if(args.category?.length) {
-                    console.log(args.category);
                     await Category.find({ categoryName: args.category })
                         .then(data => {
                             args.category = data[0]._id

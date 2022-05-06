@@ -32,8 +32,6 @@ const CategoryForm = ({ updateCategoryState, setDefault, defaultCategory, openFo
             ...catForm,
             [name]: value
         });
-
-        console.log(catForm);
     }
 
     const colorSelect = e => {
@@ -55,6 +53,7 @@ const CategoryForm = ({ updateCategoryState, setDefault, defaultCategory, openFo
 
     const createCategory = async (e) => {
         e.preventDefault();
+
         setDefault(catForm.categoryName);
         openCategoryForm();
 
@@ -67,6 +66,7 @@ const CategoryForm = ({ updateCategoryState, setDefault, defaultCategory, openFo
         }
 
         updateCategoryState(catForm.categoryName);
+;
     };
 
     if(loading) {
@@ -86,14 +86,14 @@ const CategoryForm = ({ updateCategoryState, setDefault, defaultCategory, openFo
                         <section className="dropdown-content">
                             {categories?.length ? 
                                 categories?.map(cat => {
-                                    return <p key={cat?._id} onClick={chooseCategory}>{cat?.categoryName}</p>
+                                    return <p className="main-red handwriting category-list" key={cat?._id} onClick={chooseCategory}>{cat?.categoryName}</p>
                                 }) : ""
                             }
                             
                             <button onClick={openCategoryForm} className="main-red font subtitle cat-btn">+ Add New Category</button>
                         </section>
                     </section>
-                </> 
+                </>
             :
                 <>
                     <label className="main-red font para" htmlFor="categoryName">Category Name:</label>

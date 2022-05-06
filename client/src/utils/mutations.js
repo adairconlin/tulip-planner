@@ -44,6 +44,7 @@ export const ADD_EVENT = gql`
             category {
                 _id
                 categoryName
+                color
             }
             user {
                 _id

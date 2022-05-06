@@ -296,7 +296,7 @@ footer p {
 }
 
 .overlay-container form input, .overlay-container article textarea {
-    border: 3px solid var(--main-red);
+    border: 4px solid var(--main-red);
     border-radius: 5px;
     margin-bottom: 4vh;
 }
@@ -423,17 +423,22 @@ footer p {
 
 .event-form {
     flex-direction: column;
-    padding: 3vh 5vh 5vh 5vh;
+    padding: 3vh 5vh 6vh 5vh;
+    margin-top: 8vh;
 }
 
-.event-form svg {
+.event-form .onCloseBtn {
     margin-bottom: 5vh;
     align-self: flex-end;
 }
 
-.event-form div, .event-form article {
+.event-form div:first-of-type, .event-form article:first-of-type {
     display: flex;
     justify-content: space-around;
+}
+
+.event-form .save {
+    margin-top: 10vh;
 }
 
 .eventFlower {
@@ -455,27 +460,37 @@ footer p {
     background-color: gray;
 }
 
+.warningDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
+    width: 60%;
 }
 
 .dropdown section:first-of-type {
     border: 3px solid var(--main-red);
     border-radius: 5px;
-    width: 60%
 }
 
 .dropdown-content {
+    background-color: white;
     border: 3px solid var(--main-red);
-    width: 60%;
     display: none;
     position: absolute;
     z-index: 1;
+    width: 97%;
+    max-height: 13vh;
+    overflow-y: scroll;
 }
 
 .dropdown-content p, .dropdown-content button {
     display: block;
+    transition: .5s ease;
 }
 
 .dropdown-content input {
@@ -484,6 +499,18 @@ footer p {
 
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+.category-list {
+    padding: 4px 0px 3px 0px;
+    border-bottom: 2px solid var(--main-red);
+    transition: .5s ease;
+}
+
+.category-list:hover, .dropdown-content button:hover {
+    cursor: pointer;
+    background-color: var(--light-red);
+    width: 100%;
 }
 
 .cat-btn {

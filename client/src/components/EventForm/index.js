@@ -23,7 +23,7 @@ const EventForm = ({ currentDate, onClose }) => {
             startDate: `${currentDate.day},${currentDate.month},${currentDate.year}`,
             endDate: "",
             category: ""
-        })
+        });
 
     const handleFormChange = e => {
         const { name, value } = e.target;
@@ -36,7 +36,7 @@ const EventForm = ({ currentDate, onClose }) => {
     const updateCategoryState = e => {
         setEventForm({
             ...eventForm,
-            category: e
+            category: e,
         });
     }
 
@@ -63,7 +63,7 @@ const EventForm = ({ currentDate, onClose }) => {
         <>
             <div className="event-background" />
                 <div className="overlay-container event-form">
-                    <svg onClick={onClose} xmlns="http://www.w3.org/2000/svg" width="29.573" height="18.074" viewBox="0 0 29.573 18.074">
+                    <svg className="onCloseBtn" onClick={onClose} xmlns="http://www.w3.org/2000/svg" width="29.573" height="18.074" viewBox="0 0 29.573 18.074">
                         <g id="Group_26" data-name="Group 26" transform="translate(-25.963 -31.463)">
                             <line id="Line_1" data-name="Line 1" x2="25.5" y2="14" transform="translate(28 33.5)" fill="none" stroke="#898e77" strokeLinecap="round" strokeWidth="3"/>
                             <line id="Line_3" data-name="Line 3" y1="14" x2="25.5" transform="translate(28 33.5)" fill="none" stroke="#898e77" strokeLinecap="round" strokeWidth="3"/>
@@ -81,10 +81,10 @@ const EventForm = ({ currentDate, onClose }) => {
                             { !openForm &&
                                 <>
                                     <label className="main-red font para" htmlFor="title">Title:</label>
-                                    <input className="main-green handwriting para" name="title" onChange={handleFormChange} />
+                                    <input className="main-green handwriting para" name="title" value={eventForm.title} onChange={handleFormChange} />
                                     
                                     <label className="main-red font para" htmlFor="description">Description:</label>
-                                    <input className="main-green handwriting para" name="description" onChange={handleFormChange} />
+                                    <input className="main-green handwriting para" name="description" value={eventForm.description} onChange={handleFormChange} />
                                 </>
                             }
                         
