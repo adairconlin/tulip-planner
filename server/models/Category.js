@@ -10,6 +10,7 @@ const categorySchema = new Schema(
         },
         color: {
             type: String,
+            unique: true,
             required: true,
             trim: true
         },

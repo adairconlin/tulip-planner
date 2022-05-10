@@ -7,7 +7,6 @@ import EventBtn from "../../assets/EventBtn";
 
 const DayLayout = ({ day, month, year, i }) => {
     const [btnDisplay, setBtnDisplay] = useState(true);
-    const [propValue, setPropValue] = useState("defaultBtn");
     const dateInfo = {
         day: day.toString(),
         month: month.toString(),
@@ -31,9 +30,11 @@ const DayLayout = ({ day, month, year, i }) => {
         if(eventState) {
             window.location.assign("/myplanner");
             setCurrentEvent(null);
+            document.querySelector("body").style.overflowY = "auto";
         } else if(!eventState) {
             setCurrentEvent(id);
             setEventState(!eventState);
+            document.querySelector("body").style.overflowY = "hidden";
         }
     }
 
@@ -45,7 +46,10 @@ const DayLayout = ({ day, month, year, i }) => {
         return (
             <article className="day">
                 <div className="font date" key={i}>
-                    <button className="addEventBtn">+</button>
+                    <div className="addEventBtn"
+                        onClick={toggleEventForm}>
+                            <EventBtn status={propValue} />
+                    </div>
                     <span>{day}</span>
                 </div>
             </article>
