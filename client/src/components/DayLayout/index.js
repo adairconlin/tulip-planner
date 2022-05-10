@@ -48,7 +48,7 @@ const DayLayout = ({ day, month, year, i }) => {
                 <div className="font date" key={i}>
                     <div className="addEventBtn"
                         onClick={toggleEventForm}>
-                            <EventBtn status={propValue} />
+                            <EventBtn />
                     </div>
                     <span>{day}</span>
                 </div>
@@ -67,7 +67,7 @@ const DayLayout = ({ day, month, year, i }) => {
                 <div className="font date" key={i} >
                     <div className="addEventBtn"
                         onClick={toggleEventForm}>
-                            <EventBtn status={propValue} />
+                            <EventBtn />
                     </div>
                     <span>{day}</span>
                 </div>

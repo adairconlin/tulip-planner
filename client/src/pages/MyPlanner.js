@@ -7,8 +7,10 @@ const MyPlanner = () => {
 
     return (
         <>
-            <h2 className="font today main-red main">Today is {today}.</h2>
-            <Calendar />
+            <div>
+                <h2 className="font today main-red main">Today is {today}.</h2>
+                <Calendar />
+            </div>
         </>
     )
 }

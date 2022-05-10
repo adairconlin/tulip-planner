@@ -380,6 +380,10 @@ footer p {
     overflow-y: hidden;
 }
 
+.day-empty {
+    background-color: var(--light-red);
+}
+
 .addEventBtn {
     visibility: hidden;
     border: none;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DayLayout from "../DayLayout";
+import DayLayoutEmpty from "../DayLayoutEmpty";
 const { DateTime } = require("luxon");
 
 const Calendar = () => {
@@ -8,14 +9,34 @@ const Calendar = () => {
     const [ activeMonth, setActiveMonth ] = useState(currentMonth);
     const [ activeYear, setActiveYear ] = useState(currentYear);
 
-    // Calculates the amount of days in the active month
+    let days = [];
+    const getFirstDay = () => {
+        let firstDayNum = DateTime.local(activeYear, activeMonth, 1).weekday;
+        firstDayNum = firstDayNum - 1;
+        return firstDayNum;
+    }
+
+    for(let i = 0; i < getFirstDay(); i++) {
+        days.push(<DayLayoutEmpty />);
+    }
+
     const getDays = () => {
         return DateTime.local(activeYear, activeMonth).daysInMonth;
     }
 
-    let days = [];
     for(let i = 0; i < getDays(); i++) {
         days.push(<DayLayout day={i + 1} month={activeMonth} year={activeYear} key={i} />);
+    }
+
+    const getFinalDay = () => {
+        const lastDay = getDays();
+        let lastDayNum = DateTime.local(activeYear, activeMonth, lastDay).weekday;
+        lastDayNum = 7 - lastDayNum;
+        return lastDayNum;
+    }
+
+    for(let i = 0; i < getFinalDay(); i++) {
+        days.push(<DayLayoutEmpty />);
     }
 
     // Changes the month and year based on current month
