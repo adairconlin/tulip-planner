@@ -7,7 +7,6 @@ import EventBtn from "../../assets/EventBtn";
 
 const DayLayout = ({ day, month, year, i }) => {
     const [btnDisplay, setBtnDisplay] = useState(true);
-    const [btnContent, setBtnContent] = useState(true);
     const [propValue, setPropValue] = useState("defaultBtn");
     const dateInfo = {
         day: day.toString(),
@@ -42,16 +41,6 @@ const DayLayout = ({ day, month, year, i }) => {
         setBtnDisplay(!btnDisplay);
     }
 
-    const changeBtnContent = () => {
-        setBtnContent(!btnContent);
-
-        if(btnContent) {
-            setPropValue("hoverBtn");
-        } else if(!btnContent) {
-            setPropValue("defaultBtn");
-        }
-    }
-
     if(loading) {
         return (
             <article className="day">
@@ -73,8 +62,6 @@ const DayLayout = ({ day, month, year, i }) => {
             <article className="day" onMouseEnter={changeBtnDisplay} onMouseLeave={changeBtnDisplay}>
                 <div className="font date" key={i} >
                     <div className="addEventBtn"
-                        onMouseEnter={changeBtnContent}
-                        onMouseLeave={changeBtnContent}
                         onClick={toggleEventForm}>
                             <EventBtn status={propValue} />
                     </div>

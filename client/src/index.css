@@ -124,7 +124,7 @@ header {
 }
 
 .menu-overlay svg {
-    margin-top: 20px;
+    margin-top: 25px;
     margin-bottom: auto;
     margin-left: 30px;
 }
@@ -308,7 +308,7 @@ footer p {
 .overlay-container form .green-btn, .overlay-container article .green-btn {
     align-self: flex-end;
     justify-self: flex-end;
-    margin-top: 5vh;
+    margin-top: 7vh;
 }
 
 .signon-container {
@@ -437,10 +437,6 @@ footer p {
     justify-content: space-around;
 }
 
-.event-form .save {
-    margin-top: 10vh;
-}
-
 .eventFlower {
     width: 40%;
 }
@@ -451,9 +447,14 @@ footer p {
 }
 
 .eventList a {
+    border-radius: 5px;
     margin-bottom: 5px;
     padding: 0px 10px;
     white-space: nowrap;
+}
+
+.eventList a:hover {
+    cursor: pointer;
 }
 
 .event-default {
