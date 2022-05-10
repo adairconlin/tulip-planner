@@ -91,6 +91,7 @@ export const QUERY_MY_EVENTS = gql`
             }
             category {
                 categoryName
+                color
             }
             createdAt
             user {
@@ -119,6 +120,7 @@ export const QUERY_EVENT = gql`
             }
             category {
                 categoryName
+                color
             }
         }
     }
@@ -149,6 +151,10 @@ export const QUERY_TODAY = gql`
             events {
                 _id
                 title
+                category {
+                    categoryName
+                    color
+                }
             }
         }
     }

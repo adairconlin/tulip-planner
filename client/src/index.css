@@ -13,7 +13,12 @@ body {
     justify-content: space-between;
 }
 
-.main, footer {
+.main {
+    padding: 0px 30px;
+    margin-top: 140px;
+}
+
+footer {
     padding: 0px 30px;
 }
 
@@ -24,6 +29,12 @@ body {
     --med-red: #D1B2AD;
     --light-red: #D9D1CF;
     --sky-blue: #BBD2D0;
+
+    --purple-sunset: #A7A4BB;
+    --orange-sunset: #EFBAA2;
+    --yellow-sunset: #F2EFD2;
+
+    --sunset-overlay: linear-gradient(180deg, var(--purple-sunset), var(--med-red), var(--orange-sunset), var(--yellow-sunset));
 }
 
 .main-red {
@@ -66,7 +77,7 @@ h1 {
     font-size: 64px;
 }
 
-h2 {
+h2, .title {
     font-size: 47px;
     margin: 0px;
 }
@@ -86,57 +97,73 @@ button:hover {
 }
 
 a {
+    color: inherit;
     text-decoration: none;
+}
+
+input:focus {
+    outline: none;
 }
 
 /* Header */
 header {
-    display: fixed;
+    position: fixed;
     top: 0;
     width: 100%;
     text-align: center;
     padding: 15px 0px 10px 0px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+    background-color: white;
 }
 
-    /* Menu */
+/* Menu */
 .menu-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
+    z-index: 5;
 }
 
-.menu-overlay button {
-    margin-top: 0px;
+.menu-overlay svg {
+    margin-top: 25px;
     margin-bottom: auto;
     margin-left: 30px;
 }
 
 .menu-open {
     height: 100vh;
-    width: 20vw;
-    background-color: white;
+    width: 100vw;
+    background-color: rgba(217, 209, 207, 0.65);
 }
 
-.menu-open div {
+.menu-white {
+    height: 100%;
+    width: 20%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.menu-white div {
+    padding-top: 30px;
     padding-left: 30px;
     display: flex;
     flex-direction: column;
 }
 
-    /* Hero */
+/* Hero */
 .hero {
-    margin: 100px auto 100px auto;
+    margin: 18vh auto 4vh auto;
     text-align: center;
 }
 
 .hero hr {
     background-color: var(--main-red);
-    height: 3px;
+    height: 4px;
     border-width: 0; 
-    width: 45%;
+    width: 50%;
+    margin: 40px auto;
 }
 
-svg:hover line {
+.sun:hover line, .sun:hover path:last-of-type {
     stroke-dasharray: 100;
     stroke-dashoffset: 1000;
     animation: zoom 10s linear forwards;
@@ -147,11 +174,41 @@ svg:hover line {
         stroke-dashoffset: 0;
     }
 }
-    /*       */
 
 .mid {
     background-color: var(--main-red);
-    padding: 100px 200px;
+    padding: 80px 350px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.mid div {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    margin-left: 4vw;
+}
+
+.mid div p:first-of-type {
+    margin-bottom: 50px;
+}
+
+.sectionPreview {
+    z-index: -5;
+    height: 100%;
+}
+
+.preview {
+    background-image: url("./assets/calendar-preview.JPG");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+    min-height: 900px;
+    width: 100%;
+    z-index: -5;
 }
 
 .login-section {
@@ -174,18 +231,29 @@ svg:hover line {
     align-items: center;
 }
 
-.login-section div button {
-    font-size: 2vw;
+.login-section div button, .login-section div button a {
+    font-size: 1.5vw;
+    transition: .3s ease;
+    color: var(--main-red);
+}
+
+.login-section div button:hover {
+    color: white;
+    background-color: var(--main-red);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.login-section div button:hover a {
+    color: white;
 }
 
 .btn-select {
-    width: 20%;
-    padding: 8px 60px;
+    width: 15%;
+    padding: 15px 45px;
     border: none;
     border-radius: 50px;
     margin-bottom: 50px;
 }
-/*         */
 
 /* Footer */
 footer {
@@ -199,15 +267,75 @@ footer {
 footer p {
     margin: 10px 0px;
 }
-/*        */
+
+/* Login & Sign up */
+.overlay-background {
+    background-image: var(--sunset-overlay);
+    height: 100vh;
+}
+
+.overlay-container {
+    display: flex;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 var(--main-red);
+    border-radius: 10px;
+    width: 65%;
+    margin: 11vh auto 12vh auto;
+    padding: 7vh 0px 7vh 0px;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: fixed;
+    z-index: 2;
+}
+
+.overlay-container form, .overlay-container article {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 45%;
+}
+
+.overlay-container form input, .overlay-container article textarea {
+    border: 4px solid var(--main-red);
+    border-radius: 5px;
+    margin-bottom: 4vh;
+}
+
+.overlay-container form h2 {
+    margin-bottom: 10vh;
+}
+
+.overlay-container form .green-btn, .overlay-container article .green-btn {
+    align-self: flex-end;
+    justify-self: flex-end;
+    margin-top: 7vh;
+}
+
+.signon-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.green-btn {
+    color: white;
+    border: none;
+    border-radius: 20px;
+    background-color: var(--main-green);
+    padding: 7px 18px;
+    transition: .3s ease;
+}
+
+.green-btn:hover {
+    background-color: var(--main-red);
+}
 
 /* MyPlanner */
 .today {
-    margin-top: 50px;
     margin-left: 50px;
 }
 
-    /* Calendar */
+/* Calendar */
 .calendar {
     margin: 10px 75px;
     padding: 30px;
@@ -223,29 +351,44 @@ footer p {
     margin-bottom: 10px;
 }
 
-.calendar-top button {
-    border-radius: 100%;
-    padding: 5px 10px;
-    
+.calendar-top p {
+    width: 300px;
+    text-align: center;
 }
+
+.calendar-top button {
+    border-radius: 100px;
+    border: none;
+    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.25);
+    padding: 10px 13px;
+}
+
 .days {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
     margin: 0px auto;
 }
-    /* Day Layout */
+/* Day Layout */
 .day {
     width: 11.7vw;
     height: 6vw;
-    border: 1px solid black;
+    border: 2px solid var(--main-red);
     padding: 5px;
     overflow-x: hidden;
     overflow-y: hidden;
 }
 
+.day-empty {
+    background-color: var(--light-red);
+}
+
 .addEventBtn {
     visibility: hidden;
+    border: none;
+    background-color: none;
+    border-radius: 100px;
 }
 
 .day:hover {
@@ -254,6 +397,7 @@ footer p {
 
 .day:hover .addEventBtn {
     visibility: visible;
+    cursor: pointer;
 }
 
 .date {
@@ -265,10 +409,13 @@ footer p {
 .date span {
     margin-right: 0;
     margin-left: auto;
+    color: var(--main-red);
 }
 
-.eventFormBackdrop, .eventDetailBackdrop {
-    background:rgba(0, 0, 0, 0.65);
+/* Event form overlay */
+.event-background {
+    background-image: var(--sunset-overlay);
+    opacity: 85%;
     bottom: 0;
     left: 0;
     overflow: auto;
@@ -278,12 +425,24 @@ footer p {
     z-index: 1;
 }
 
-.eventFormContainer, .eventDetailContainer {
-    background-color: white;
-    border-radius: 25px;
-    width: 75%;
-    height: 75%;
-    margin: 75px auto;
+.event-form {
+    flex-direction: column;
+    padding: 3vh 5vh 6vh 5vh;
+    margin-top: 8vh;
+}
+
+.event-form .onCloseBtn {
+    margin-bottom: 5vh;
+    align-self: flex-end;
+}
+
+.event-form div:first-of-type, .event-form article:first-of-type {
+    display: flex;
+    justify-content: space-around;
+}
+
+.eventFlower {
+    align-self: center;
 }
 
 .eventList {
@@ -292,28 +451,51 @@ footer p {
 }
 
 .eventList a {
+    border-radius: 5px;
     margin-bottom: 5px;
     padding: 0px 10px;
     white-space: nowrap;
+}
+
+.eventList a:hover {
+    cursor: pointer;
 }
 
 .event-default {
     background-color: gray;
 }
 
+.warningDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
+    width: 60%;
+}
+
+.dropdown section:first-of-type {
+    border: 3px solid var(--main-red);
+    border-radius: 5px;
 }
 
 .dropdown-content {
+    background-color: white;
+    border: 3px solid var(--main-red);
     display: none;
     position: absolute;
     z-index: 1;
+    width: 97%;
+    max-height: 13vh;
+    overflow-y: scroll;
 }
 
 .dropdown-content p, .dropdown-content button {
     display: block;
+    transition: .5s ease;
 }
 
 .dropdown-content input {
@@ -323,6 +505,76 @@ footer p {
 .dropdown:hover .dropdown-content {
     display: block;
 }
-    /*          */
 
-/*                */
+.category-list {
+    padding: 4px 0px 3px 0px;
+    border-bottom: 2px solid var(--main-red);
+    transition: .5s ease;
+}
+
+.category-list:hover, .dropdown-content button:hover {
+    cursor: pointer;
+    background-color: var(--light-red);
+    width: 100%;
+}
+
+.cat-btn {
+    border: none;
+}
+
+.radio-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start !important;
+}
+
+.radio-btns div {
+    height: 40px;
+    width: 40px;
+    border-radius: 100px;
+    border: none;
+    margin: 5px 15px 15px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.radio-btns div:hover {
+    cursor: pointer;
+}
+
+.radio-btns div span {
+    color: gray;
+}
+
+.red, .radio-btns div .red {
+    background-color: #BC938B;
+}
+
+.orange {
+    background-color: #D4BC9F;
+}
+
+.lt-green {
+    background-color: #CAD1AF;
+}
+
+.green {
+    background-color: #898E77;
+}
+
+.lt-blue {
+    background-color: #B0D1CE;
+}
+
+.blue {
+    background-color: #788F8D;
+}
+
+.purple {
+    background-color: #B3A0B9;
+}
+
+.pink {
+    background-color: #DFC3C3;
+}

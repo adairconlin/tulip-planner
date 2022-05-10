@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
+import SecondaryFlowers from "../assets/SecondaryFlowers";
 
 const Signup = () => {
     const [formState, setFormState] = useState(
@@ -38,20 +39,26 @@ const Signup = () => {
 
     return (
         <>
-            <h1>Signup</h1>
-            <form onSubmit={handelUserSignup} autoComplete="off">
-                <label htmlFor="name">Name:</label>
-                <input name="name" type="name" onChange={handleFormChange} />
+            <div className="overlay-background"> 
+                <div className="overlay-container signon-container">
+                    <SecondaryFlowers form={"signon"} />
+                    <form onSubmit={handelUserSignup} autoComplete="off">
+                        <h2 className="main-red font">Welcome.</h2>
 
-                <label htmlFor="email">Email:</label>
-                <input name="email" type="email" onChange={handleFormChange} />
+                        <label className="font main-red para" htmlFor="name">Name:</label>
+                        <input className="handwriting main-green para" name="name" onChange={handleFormChange} />
 
-                <label htmlFor="password">Password:</label>
-                <input name="password" type="password" onChange={handleFormChange} />
+                        <label className="font main-red para" htmlFor="email">Email:</label>
+                        <input className="handwriting main-green para" name="email" type="email" onChange={handleFormChange} />
 
-                <button type="submit">Sign up</button>
-                {error && <p>Login failed.</p>}
-            </form>
+                        <label className="font main-red para" htmlFor="password">Password:</label>
+                        <input className="handwriting main-green para" name="password" type="password" onChange={handleFormChange} />
+
+                        <button className="subtitle font green-btn" type="submit">Sign Up</button>
+                        {error && <p>Sign up failed.</p>}
+                    </form>
+                </div>
+            </div>
         </>
     )
 }

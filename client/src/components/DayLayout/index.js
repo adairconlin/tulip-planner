@@ -3,10 +3,10 @@ import { useQuery } from "@apollo/client";
 import { QUERY_TODAY } from "../../utils/queries";
 import EventForm from "../EventForm";
 import EventDetails from "../EventDetails";
+import EventBtn from "../../assets/EventBtn";
 
 const DayLayout = ({ day, month, year, i }) => {
     const [btnDisplay, setBtnDisplay] = useState(true);
-    const [btnText, setBtnText] = useState(true);
     const dateInfo = {
         day: day.toString(),
         month: month.toString(),
@@ -30,31 +30,26 @@ const DayLayout = ({ day, month, year, i }) => {
         if(eventState) {
             window.location.assign("/myplanner");
             setCurrentEvent(null);
+            document.querySelector("body").style.overflowY = "auto";
         } else if(!eventState) {
             setCurrentEvent(id);
             setEventState(!eventState);
+            document.querySelector("body").style.overflowY = "hidden";
         }
     }
 
-    const changeBtnDisplay = e => {
+    const changeBtnDisplay = () => {
         setBtnDisplay(!btnDisplay);
-    }
-
-    const changeBtnText = e => {
-        setBtnText(!btnText);
-
-        if(btnText) {
-            e.target.textContent = "+ Add Event"
-        } else if(!btnText) {
-            e.target.textContent = "+"
-        }
     }
 
     if(loading) {
         return (
             <article className="day">
                 <div className="font date" key={i}>
-                    <button className="addEventBtn">+</button>
+                    <div className="addEventBtn"
+                        onClick={toggleEventForm}>
+                            <EventBtn />
+                    </div>
                     <span>{day}</span>
                 </div>
             </article>
@@ -66,14 +61,14 @@ const DayLayout = ({ day, month, year, i }) => {
             {formState && 
                 <EventForm currentDate={dateInfo} onClose={toggleEventForm} />}
             {eventState && 
-                <EventDetails eventId={currentEvent} onClose={toggleEventDetails} eventDate={dateInfo} /*myCategories={categories}*/ />}
+                <EventDetails eventId={currentEvent} onClose={toggleEventDetails} eventDate={dateInfo} />}
 
             <article className="day" onMouseEnter={changeBtnDisplay} onMouseLeave={changeBtnDisplay}>
                 <div className="font date" key={i} >
-                    <button className="addEventBtn"
-                        onMouseEnter={changeBtnText}
-                        onMouseLeave={changeBtnText}
-                        onClick={toggleEventForm}>+</button>
+                    <div className="addEventBtn"
+                        onClick={toggleEventForm}>
+                            <EventBtn />
+                    </div>
                     <span>{day}</span>
                 </div>
 
@@ -82,7 +77,9 @@ const DayLayout = ({ day, month, year, i }) => {
                             todaysEvents?.map(event => {
                                 return <a key={event?._id}
                                             onClick={() => toggleEventDetails(event._id)}
-                                            className="handwriting white subtitle event-default">{event?.title}</a>
+                                            className={`handwriting white subtitle ${event?.category?.color ? `${event.category.color}` : "event-default"} `}>
+                                                {event?.title}
+                                            </a>
                                 
                             })
                         : ""

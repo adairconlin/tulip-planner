@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
+import SecondaryFlowers from "../assets/SecondaryFlowers";
 
 const Login = () => {
     const [formState, setFormState] = useState(
@@ -36,17 +37,23 @@ const Login = () => {
 
     return (
         <>
-            <h1>Login</h1>
-            <form onSubmit={handelUserLogin} autoComplete="off">
-                <label htmlFor="email">Email:</label>
-                <input name="email" type="email" onChange={handleFormChange} />
+            <section className="overlay-background"> 
+                <section className="overlay-container signon-container">
+                    <SecondaryFlowers form={"signon"} />
+                    <form onSubmit={handelUserLogin} autoComplete="off">
+                        <h2 className="main-red font">Welcome back!</h2>
 
-                <label htmlFor="password">Password:</label>
-                <input name="password" type="password" onChange={handleFormChange} />
+                        <label className="font main-red para" htmlFor="email">Email:</label>
+                        <input className="handwriting main-green para" name="email" type="email" onChange={handleFormChange} />
 
-                <button type="submit">Sign up</button>
-                {error && <p>Sign up failed.</p>}
-            </form>
+                        <label className="font main-red para" htmlFor="password">Password:</label>
+                        <input className="handwriting main-green para" name="password" type="password" onChange={handleFormChange} />
+
+                        <button className="subtitle font green-btn" type="submit">Log In</button>
+                        {error && <p>Log in failed.</p>}
+                    </form>
+                </section>
+            </section>
         </>
     )
 }

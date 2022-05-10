@@ -13,6 +13,8 @@ import Homepage from "./pages/Homepage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 
+import { ParallaxProvider } from "react-scroll-parallax";
+
 // establish a link to the graphql server at its /graphql endpoint
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -50,7 +52,9 @@ function App() {
             <Routes>
               <Route path="/" element={
                 <UserRedirect>
-                  <Homepage />
+                  <ParallaxProvider>
+                    <Homepage />
+                  </ParallaxProvider>
                 </UserRedirect>
                 } 
               />
