@@ -415,7 +415,7 @@ footer p {
 /* Event form overlay */
 .event-background {
     background-image: var(--sunset-overlay);
-    opacity: 80%;
+    opacity: 85%;
     bottom: 0;
     left: 0;
     overflow: auto;
@@ -442,7 +442,7 @@ footer p {
 }
 
 .eventFlower {
-    width: 40%;
+    align-self: center;
 }
 
 .eventList {

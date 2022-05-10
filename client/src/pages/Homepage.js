@@ -41,7 +41,7 @@ const Homepage = () => {
                             <Link to="/signup">Sign Up</Link>
                         </button>
                         <button className="btn-select font">
-                            <Link to="/signup">Login</Link>
+                            <Link to="/login">Login</Link>
                         </button>
                     </div>
                 <hr />
