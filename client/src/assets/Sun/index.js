@@ -1,10 +1,25 @@
 import React from "react";
+import { useSpring, animated, config } from "react-spring";
 
 const Sun = ({ direction }) => {
+    const upperSunLoad = useSpring({
+        to: { opacity: 1, y: 0 },
+        from: { opacity: 0, y: -50 },
+        config: config.molasses,
+        delay: 500
+    })
+
+    const lowerSunLoad = useSpring({
+        to: { opacity: 1, y: 0 },
+        from: { opacity: 0, y: 50 },
+        config: config.molasses,
+        delay: 600
+    })
+
     return (
         <>
             {direction === "top" &&
-                <svg className="sun" xmlns="http://www.w3.org/2000/svg" width="506.066" height="181.406" viewBox="0 0 506.066 181.406">
+                <animated.svg style={upperSunLoad} className="sun" xmlns="http://www.w3.org/2000/svg" width="506.066" height="181.406" viewBox="0 0 506.066 181.406">
                 <g id="Group_37" data-name="Group 37" transform="translate(-705.129 -184.001)">
                   <g id="Group_24" data-name="Group 24">
                     <path id="Path_1" data-name="Path 1" d="M3239.417,363s26.423-110.2,165.293-110.2S3572.359,363,3571.923,363" transform="translate(-2445.917)" fill="none" stroke="#bc938b" strokeLinecap="round" strokeWidth="4"/>
@@ -21,11 +36,11 @@ const Sun = ({ direction }) => {
                     <line id="Line_52" data-name="Line 52" x1="23" y1="12.725" transform="translate(760.5 288.5)" fill="none" stroke="#bc938b" strokeLinecap="round" strokeWidth="4"/>
                   </g>
                 </g>
-              </svg>
+              </animated.svg>
             }
 
             {direction === "bottom" && 
-                <svg className="sun" xmlns="http://www.w3.org/2000/svg" width="506.066" height="181.406" viewBox="0 0 506.066 181.406">
+                <animated.svg style={lowerSunLoad} className="sun" xmlns="http://www.w3.org/2000/svg" width="506.066" height="181.406" viewBox="0 0 506.066 181.406">
                     <g id="Group_38" data-name="Group 38" transform="translate(-705.062 -714.593)">
                     <g id="Group_32" data-name="Group 32" transform="translate(1916.256 1080) rotate(180)">
                         <path id="Path_1" data-name="Path 1" d="M3239.417,363s26.423-110.2,165.293-110.2S3572.359,363,3571.923,363" transform="translate(-2445.917)" fill="none" stroke="#bc938b" strokeLinecap="round" strokeWidth="4"/>
@@ -42,8 +57,7 @@ const Sun = ({ direction }) => {
                         <line id="Line_52" data-name="Line 52" x1="23" y1="12.725" transform="translate(760.5 288.5)" fill="none" stroke="#bc938b" strokeLinecap="round" strokeWidth="4"/>
                     </g>
                     </g>
-                </svg>
-              
+                </animated.svg>
             }
         </>
     )
