@@ -21,7 +21,7 @@ const Homepage = () => {
         from: { opacity: 0 },
         config: config.molasses,
         delay: 300
-    })
+    });
 
     return (
         <>

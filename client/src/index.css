@@ -129,6 +129,10 @@ header {
     margin-left: 30px;
 }
 
+.menu-overlay svg:hover {
+    cursor: pointer;
+}
+
 .menu-open {
     height: 100vh;
     width: 100vw;
@@ -147,6 +151,14 @@ header {
     padding-left: 30px;
     display: flex;
     flex-direction: column;
+}
+
+.menu-white div a {
+    transition: .5s ease;
+}
+
+.menu-white div a:hover {
+    color: var(--main-red);
 }
 
 /* Hero */

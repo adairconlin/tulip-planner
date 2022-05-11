@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSpring, animated, config } from "react-spring";
 import { Link } from "react-router-dom";
 import Auth from "../../utils/auth";
 
@@ -20,6 +21,12 @@ const Menu = () => {
         }
     }
 
+    // React Spring animation
+    const openMenu = useSpring({
+        opacity: menuActive ? 1 : 0,
+        config: config.gentle
+    });
+
     return (
         <>
             <section className="menu-overlay">
@@ -33,8 +40,8 @@ const Menu = () => {
                     </svg>
                     ) : (
                     <>
-                        <div className="menu-open">
-                            <div className="menu-white">
+                        <animated.div style={openMenu} className="menu-open">
+                            <animated.div style={openMenu} className="menu-white">
                                 <svg onClick={menuDisplay} xmlns="http://www.w3.org/2000/svg" width="29.573" height="18.074" viewBox="0 0 29.573 18.074">
                                     <g id="Group_26" data-name="Group 26" transform="translate(-25.963 -31.463)">
                                         <line id="Line_1" data-name="Line 1" x2="25.5" y2="14" transform="translate(28 33.5)" fill="none" stroke="#898e77" strokeLinecap="round" strokeWidth="3"/>
@@ -59,8 +66,8 @@ const Menu = () => {
                                     </>
                                     }
                                 </div>
-                            </div>
-                        </div>
+                            </animated.div>
+                        </animated.div>
                     </>
                     )
                 }
