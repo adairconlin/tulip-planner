@@ -1,10 +1,18 @@
 import React from "react";
+import { useSpring, animated, config } from "react-spring";
 
 const SecondaryFlowers = ({ form }) => {
+    const flowerLoad = useSpring ({
+        from: { opacity: 0, y: 50 },
+        to: { opacity: 1, y: 0 },
+        config: config.gentle,
+        delay: 300
+    });
+
     return (
         <>
             {form === "signon" &&
-            <svg xmlns="http://www.w3.org/2000/svg" width="342.549" height="550.932" viewBox="0 0 342.549 550.932">
+            <animated.svg style={flowerLoad} xmlns="http://www.w3.org/2000/svg" width="342.549" height="550.932" viewBox="0 0 342.549 550.932">
                 <g id="Group_35" data-name="Group 35" transform="translate(-427.166 -275.12)">
                     <path id="Path_31" data-name="Path 31" d="M3099.422,3796.671s3.582-66.828,2.388-89.987-10.562-90.2-10.562-90.2" transform="translate(-2461.87 -2971.671)" fill="none" stroke="#bc938b" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
                     <path id="Path_32" data-name="Path 32" d="M3105.236,3798.967s2.149-84.257,0-97.388-11.46-67.09-11.46-67.09" transform="translate(-2462.192 -2973.967)" fill="none" stroke="#bc938b" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
@@ -32,12 +40,12 @@ const SecondaryFlowers = ({ form }) => {
                     <path id="Path_54" data-name="Path 54" d="M2953.011,3335.965s2.33-25.132,0-32.289,1.067-12.419,0-13.261-.225-3.368-1.067-5.262-2.1-.631-3.578-1.263-1.684-3.368-3.578-1.474-10.314,2.526-13.682,10.314-6.525,18.944-8.841,32.205-4.21,42.73,0,53.676,6.735,26.943,21.26,31.784c5.181,2.023,10.067,3.748,10.067,3.748" transform="translate(-2452 -2998)" fill="none" stroke="#bc938b" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
                     <path id="Path_55" data-name="Path 55" d="M2950.681,3283.89s1.684-4.42,4.21-4.42,3.157,3.157,4,1.684,2.736-5.894,4.841-5.473,4.631-2.736,5.052-1.052,1.263,2.947,2.947,2.736,2.315-2.1,3.578,0,1.684,3.368,4.21,3.789,5.052,0,5.894,2.737,0,7.367,0,7.367" transform="translate(-2452 -2998)" fill="none" stroke="#bc938b" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
                 </g>
-            </svg>
+            </animated.svg>
 
             }
 
             {form === "event" &&
-                <svg xmlns="http://www.w3.org/2000/svg" width="425" height="578.359" viewBox="0 0 425 578.359">
+                <animated.svg style={flowerLoad} xmlns="http://www.w3.org/2000/svg" width="425" height="578.359" viewBox="0 0 425 578.359">
                     <g id="Group_36" data-name="Group 36" transform="translate(-398 -242)">
                         <g id="Rectangle_105" data-name="Rectangle 105" transform="translate(398 242)" fill="none" stroke="#bc938b" strokeWidth="3">
                             <rect width="425" height="578" stroke="none"/>
@@ -57,7 +65,7 @@ const SecondaryFlowers = ({ form }) => {
                         <path id="Path_67" data-name="Path 67" d="M9056.742,362.046s.927-9.262,6.189-11.156,6.946-2.947,7.367-1.052.21,2.736,1.263,3.789-1.684,2.526-1.263,4,1.473,2.526,1.263,4.42a5.215,5.215,0,0,1-1.263,2.947" transform="translate(-8458 -1)" fill="none" stroke="#bc938b" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
                         <path id="Path_68" data-name="Path 68" d="M9095.013,365.53s-6.19-13.377-9.348-14.219-4.211-4-6.736-4.631a21.48,21.48,0,0,0-9.683,0c-2.736.842-3.41,2.185-3.41,2.185" transform="translate(-8458)" fill="none" stroke="#bc938b" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
                     </g>
-                </svg>
+                </animated.svg>
               
             }
         </>

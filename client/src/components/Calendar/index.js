@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTrail, animated } from "react-spring";
 import DayLayout from "../DayLayout";
 import DayLayoutEmpty from "../DayLayoutEmpty";
 const { DateTime } = require("luxon");
@@ -58,6 +59,13 @@ const Calendar = () => {
         }
     };
 
+    // React Spring animation
+    const trail = useTrail(days.length, {
+        from: { opacity: 0, y: 10 },
+        to: { opacity: 1, y: 0 },
+        config: { mass: .5, tension: 330, friction: 25 }
+    });
+
     return (
         <section className="calendar">
             <div className="calendar-top">
@@ -79,7 +87,12 @@ const Calendar = () => {
                     </svg>
                 </button>
             </div>
-            <div className="days">{days}</div>
+            <div className="days">
+                {trail.map((animation, index) => (
+                    <animated.div key={index} style={animation}>{days[index]}</animated.div>
+                ))}
+            </div>
+
         </section>
     )
 }

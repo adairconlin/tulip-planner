@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTrail, animated, config } from "react-spring";
 import { useQuery } from "@apollo/client";
 import { QUERY_TODAY } from "../../utils/queries";
 import EventForm from "../EventForm";
@@ -17,7 +18,7 @@ const DayLayout = ({ day, month, year, i }) => {
         variables: { day: dateInfo.day, month: dateInfo.month, year: dateInfo.year }
     });    
 
-    const todaysEvents = data?.todaysDate[0]?.events;
+    const todaysEvents = data?.todaysDate[0]?.events || [];
 
     const [formState, setFormState] = useState(false);
     const toggleEventForm = () => {
@@ -41,6 +42,13 @@ const DayLayout = ({ day, month, year, i }) => {
     const changeBtnDisplay = () => {
         setBtnDisplay(!btnDisplay);
     }
+
+    // React Spring animations
+    const eventTrail = useTrail(todaysEvents.length, {
+        from: { opacity: 0, y: 10 },
+        to: { opacity: 1, y: 0 },
+        config: config.gentle
+    });
 
     if(loading) {
         return (
@@ -74,12 +82,13 @@ const DayLayout = ({ day, month, year, i }) => {
 
                 <div className="eventList">
                     {todaysEvents?.length ?
-                            todaysEvents?.map(event => {
-                                return <a key={event?._id}
-                                            onClick={() => toggleEventDetails(event._id)}
-                                            className={`handwriting white subtitle ${event?.category?.color ? `${event.category.color}` : "event-default"} `}>
-                                                {event?.title}
-                                            </a>
+                            eventTrail.map((animation, index) => {
+                                return <animated.a key={index}
+                                            onClick={() => toggleEventDetails(todaysEvents[index]._id)}
+                                            className={`handwriting white subtitle ${todaysEvents[index].category?.color ? `${todaysEvents[index].category.color}` : "event-default"} `}
+                                            style={animation}>
+                                                {todaysEvents[index].title}
+                                            </animated.a>
                                 
                             })
                         : ""

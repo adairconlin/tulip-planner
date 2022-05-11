@@ -1,4 +1,5 @@
 import React from "react";
+import Fade from "react-reveal/Fade";
 import Calendar from "../components/Calendar";
 const { DateTime } = require("luxon");
 
@@ -8,8 +9,12 @@ const MyPlanner = () => {
     return (
         <>
             <div>
-                <h2 className="font today main-red main">Today is {today}.</h2>
-                <Calendar />
+                <Fade>
+                    <h2 className="font today main-red main">Today is {today}.</h2>
+                </Fade>
+                <Fade delay={600}>
+                    <Calendar />
+                </Fade>
             </div>
         </>
     )

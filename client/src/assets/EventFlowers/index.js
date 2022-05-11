@@ -1,9 +1,16 @@
 import React from "react";
+import { useSpring, animated, config } from "react-spring";
 
 const EventFlowers = () => {
+    const flowerLoad = useSpring ({
+        from: { opacity: 0, y: 50 },
+        to: { opacity: 1, y: 0 },
+        config: config.gentle,
+        delay: 300
+    });
 
     return (
-        <svg className="eventFlower" xmlns="http://www.w3.org/2000/svg" width="425" height="578.359" viewBox="0 0 425 578.359">
+        <animated.svg style={flowerLoad} className="eventFlower" xmlns="http://www.w3.org/2000/svg" width="425" height="578.359" viewBox="0 0 425 578.359">
             <g id="Group_36" data-name="Group 36" transform="translate(-398 -242)">
                 <g id="Rectangle_105" data-name="Rectangle 105" transform="translate(398 242)" fill="none" stroke="#bc938b" strokeWidth="3">
                     <rect width="425" height="578" stroke="none"/>
@@ -23,7 +30,7 @@ const EventFlowers = () => {
                 <path id="Path_67" data-name="Path 67" d="M9056.742,362.046s.927-9.262,6.189-11.156,6.946-2.947,7.367-1.052.21,2.736,1.263,3.789-1.684,2.526-1.263,4,1.473,2.526,1.263,4.42a5.215,5.215,0,0,1-1.263,2.947" transform="translate(-8458 -1)" fill="none" stroke="#bc938b" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
                 <path id="Path_68" data-name="Path 68" d="M9095.013,365.53s-6.19-13.377-9.348-14.219-4.211-4-6.736-4.631a21.48,21.48,0,0,0-9.683,0c-2.736.842-3.41,2.185-3.41,2.185" transform="translate(-8458)" fill="none" stroke="#bc938b" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"/>
             </g>
-        </svg>
+        </animated.svg>
     )
 }
 

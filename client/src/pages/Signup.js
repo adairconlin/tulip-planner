@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useSpring, animated, config } from "react-spring";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
+
+// import svg asset
 import SecondaryFlowers from "../assets/SecondaryFlowers";
 
 const Signup = () => {
@@ -37,13 +40,28 @@ const Signup = () => {
         }
     };
 
+    // React Spring animations
+    const containerLoad = useSpring({
+        from: { opacity: 0, y: 50 },
+        to: { opacity: 1, y: 0 },
+        config: config.gentle,
+        delay: 100
+    });
+
+    const formLoad = useSpring({
+        from: { opacity: 0 },
+        to: { opacity: 1 },
+        config: config.molasses,
+        delay: 800
+    })
+
     return (
         <>
             <div className="overlay-background"> 
-                <div className="overlay-container signon-container">
+                <animated.div style={containerLoad} className="overlay-container signon-container">
                     <SecondaryFlowers form={"signon"} />
-                    <form onSubmit={handelUserSignup} autoComplete="off">
-                        <h2 className="main-red font">Welcome.</h2>
+                    <animated.form style={formLoad} onSubmit={handelUserSignup} autoComplete="off">
+                        <h2  className="main-red font">Welcome.</h2>
 
                         <label className="font main-red para" htmlFor="name">Name:</label>
                         <input className="handwriting main-green para" name="name" onChange={handleFormChange} />
@@ -56,8 +74,8 @@ const Signup = () => {
 
                         <button className="subtitle font green-btn" type="submit">Sign Up</button>
                         {error && <p>Sign up failed.</p>}
-                    </form>
-                </div>
+                    </animated.form>
+                </animated.div>
             </div>
         </>
     )
